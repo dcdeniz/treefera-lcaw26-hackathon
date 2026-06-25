@@ -289,3 +289,44 @@ Before kicking off orchestration, decide:
 - Versioned mosaics can shift by pixels — always re-check co-registration.
 - Acquisition dates vary within each annual mosaic.
 - HV-only data cannot prove oil palm — use the `candidate_plantation_frontier` flag, never assert.
+
+---
+
+## 12. Ratified decisions — ADR sprint (2026-06-25)
+
+Binding on the implementation. These **annotate** the text above (per §0); full records in
+`docs/adr/`.
+
+- **ADR-0001 — Method.** Classical two-date L-band PALSAR HV Δ-threshold, no ML. (A RandomForest
+  study on the demo data showed AEF embeddings *subsume* static Sentinel-1 — fusion gain
+  Δacc +0.001 — so SAR's value is temporal.)
+- **ADR-0002 — Orchestration.** Build as a **single linear agent** following §3 in order; §2's
+  six-agent split is **rejected** (tiles are ~5 MB → the pipeline runs in seconds; no
+  parallelism payoff). §4 contracts retained as interface/gate definitions; a human owns the
+  C→D gate and the ≤2-iteration threshold loop.
+- **ADR-0003 — Calibration pre-flight (amends §3.4).** Our PALSAR is from GEE (`palsar_gee/`),
+  not raw JAXA mosaics, so it may already be calibrated. A **blocking pre-flight** inspects
+  dtype + range: integer DN → apply `10·log10(DN²) − 83`; float in `[−35, 5]` → already dB,
+  skip. `config.py` carries the `PALSAR_IS_DN` flag.
+- **ADR-0004 — MMU (amends §3.9).** "0.2 ha (32 pixels at 25 m)" is inconsistent (0.2 ha at
+  25 m ≈ 3.2 px; 32 px at 25 m = 2 ha). **Keep 0.2 ha; derive `min_pixels` from the tile's real
+  pixel size** at runtime; never hardcode 32. The "≥50 components" gate is advisory.
+- **ADR-0005 — Validation (amends §5).** Hansen is optical and under-reports under cloud — where
+  SAR wins — so SAR-yes/Hansen-no is **not automatically a false positive**. Report Hansen as a
+  **cross-reference**; adjudicate disagreements against SPOT (downloaded) where covered, else
+  `uncertain`. Autonomous vs Hansen; SPOT is a secondary spot-check.
+- **ADR-0006 — Environment (amends §7).** Reuse the existing **Python 3.13** venv
+  (`hackathon-demo/.venv`) + `folium`; no fresh pinned 3.11 env. Record actual versions in
+  `outputs/README.md`.
+- **ADR-0007 — Ship policy (resolves §8.6).** Always **ship a caveated demo** over blocking. Run
+  the ≤2-iteration loop; if gates still miss, present real numbers with honest limitations.
+- **ADR-0008 — Hosting.** Precompute → static bundle (GeoJSON + PNG overlays + `manifest.json`)
+  in `public/`, Vercel CDN, QR. Bucket deferred; Mongo/SaaS optional. See `INFRA_CONTRACT.md`.
+- **ADR-0009 — Isometric demo view (amends §6).** The **pitch frontend** renders the data in an
+  **isometric / 2.5D view** (MapLibre pitch + `fill-extrusion` of alerts, or deck.gl
+  orthographic), not a flat slippy map. The §6 Folium map is demoted to an optional flat QA
+  artefact.
+
+**Paths note (all ADRs):** real inputs live under `real-data/` (e.g.
+`real-data/palsar_gee/G_sar_borneo/annual/2022/...`), not the `/sar-data/...` placeholders in
+§3.3. `src/config.py` is the single source of path truth.

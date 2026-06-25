@@ -1,0 +1,30 @@
+{
+  "baseline (majority)": {
+    "accuracy": 0.7164727331224194,
+    "macro_f1": 0.1669639649490011,
+    "forest_precision": 0.0,
+    "forest_recall": 0.0,
+    "forest_f1": 0.0
+  },
+  "SAR only (3)": {
+    "accuracy": 0.8310365167033085,
+    "macro_f1": 0.42949777715688187,
+    "forest_precision": 0.7745479514763104,
+    "forest_recall": 0.8743056452654696,
+    "forest_f1": 0.821409066084107
+  },
+  "AEF only (64)": {
+    "accuracy": 0.9504531074052228,
+    "macro_f1": 0.6821367698679219,
+    "forest_precision": 0.9095483554246441,
+    "forest_recall": 0.9573698488567368,
+    "forest_f1": 0.9328466234501857
+  },
+  "AEF + SAR (67)": {
+    "accuracy": 0.9518472840366776,
+    "macro_f1": 0.6762040531278016,
+    "forest_precision": 0.9153836679394014,
+    "forest_recall": 0.9600826766567627,
+    "forest_f1": 0.9372005044136191
+  }
+}
