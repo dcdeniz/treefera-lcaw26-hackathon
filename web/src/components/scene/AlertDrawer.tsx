@@ -53,18 +53,21 @@ export function AlertDrawer({ alert, onClose }: Props) {
                 <Sparkline data={alert.delta_series} />
               </Section>
 
-              <Section label="Cross-checks">
+              <Section label="Cross-checks · BUILD_CONTRACT §5">
                 <div className="flex flex-col gap-2">
                   <CheckRow
-                    label="Hansen GFC 2023"
+                    label="Hansen GFC"
+                    rule="lossyear == 23 ∧ treecover2000 ≥ 30"
                     state={alert.cross_checks.hansen_gfc_2023 ? 'agree' : 'silent'}
                   />
                   <CheckRow
-                    label="RADD 2023 alerts"
+                    label="RADD alerts"
+                    rule="2023 in AOI · EE fallback if absent"
                     state={alert.cross_checks.radd_2023 ? 'agree' : 'silent'}
                   />
                   <CheckRow
-                    label="SPOT-7 2022-04-23"
+                    label="SPOT-7"
+                    rule="visual · scene 2022-04-23"
                     state={
                       alert.cross_checks.spot_visual === 'forest'
                         ? 'agree'
@@ -120,9 +123,11 @@ function Metric({ label, value, emphatic }: { label: string; value: string; emph
 
 function CheckRow({
   label,
+  rule,
   state,
 }: {
   label: string
+  rule: string
   state: 'agree' | 'disagree' | 'unclear' | 'silent'
 }) {
   const glyph =
@@ -136,9 +141,12 @@ function CheckRow({
       ? 'unclear'
       : 'no signal'
   return (
-    <div className="flex items-center justify-between border-b border-border/60 pb-1.5 text-xs">
-      <span>{label}</span>
-      <span className="flex items-center gap-2 text-muted-foreground">
+    <div className="flex items-start justify-between gap-3 border-b border-border/60 pb-1.5 text-xs">
+      <div className="flex flex-col gap-0.5">
+        <span>{label}</span>
+        <span className="font-mono text-[10px] text-muted-foreground">{rule}</span>
+      </div>
+      <span className="flex shrink-0 items-center gap-2 text-muted-foreground">
         <span className="text-base leading-none text-foreground">{glyph}</span>
         <span className="uppercase tracking-[0.14em] text-[10px]">{text}</span>
       </span>
