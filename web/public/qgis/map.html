@@ -59,7 +59,7 @@
 
   <div id="hud" class="panel">
     <h1>THROUGH THE CLOUDS</h1>
-    <div class="sub">Central Kalimantan, Borneo. Optical is blind under permanent cloud — L-band SAR sees the canopy loss beneath it. Drag the gradient ↓ to peel the clouds.</div>
+    <div class="sub">Central Kalimantan, Borneo. A single optical pass is ~29% cloud-blind over this AOI; L-band SAR images the canopy loss <em>on the pass it happens</em> — timeliness, not permanent blindness. Drag the gradient ↓.</div>
     <div class="stats" id="stats"></div>
   </div>
 
@@ -75,7 +75,7 @@
 
   <div id="reveal" class="panel">
     <button class="play" id="play">▷ replay</button>
-    <div class="lab"><span class="a">◐ PHOTOGRAPHIC + CLOUDS</span><span>SAR methodology →</span><span class="b">DEFORESTATION DETECTED ◑</span></div>
+    <div class="lab"><span class="a">◐ SENTINEL-2 OPTICAL PASS</span><span>SAR sees through →</span><span class="b">DEFORESTATION DETECTED ◑</span></div>
     <div class="track"><input id="rev" type="range" min="0" max="100" value="0"></div>
   </div>
 
@@ -87,6 +87,11 @@
 
   <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
   <script>
+  // Embedded on the homepage (?embed=1): hide the title/stats HUD — the page's Header
+  // + BottomStats already cover those. Standalone /map keeps the full HUD.
+  if (new URLSearchParams(location.search).has('embed')) {
+    const h = document.getElementById('hud'); if (h) h.style.display = 'none';
+  }
   const clamp = (v) => Math.max(0, Math.min(1, v));
   fetch('./overlays_manifest.json').then(r => r.json()).then(M => {
     const coords = M.coordinates;
@@ -94,10 +99,7 @@
       version: 8,
       sources: {
         osm: { type:'raster', tileSize:256, tiles:['https://tile.openstreetmap.org/{z}/{x}/{y}.png'],
-          attribution:'© OpenStreetMap contributors' },
-        optical: { type:'raster', tileSize:256,
-          tiles:['https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'],
-          attribution:'Esri World Imagery · PALSAR-2 © JAXA' },
+          attribution:'© OpenStreetMap contributors · Sentinel-2 © ESA · PALSAR-2 © JAXA' },
       },
       layers: [{ id:'osm', type:'raster', source:'osm', paint:{ 'raster-opacity':0.9 } }],
     };
@@ -107,26 +109,26 @@
 
     // reveal layers: id · type · reveal curve(t→opacity) · swatch · label
     const REV = [
-      { id:'optical', type:'raster',         sw:'#5f7d4f', nm:'Photographic (Esri optical)', curve:t=>0.10+0.90*clamp(1-t*1.05) },
-      { id:'clouds',  type:'raster',         sw:'#dfe6ef', nm:'Clouds — optical blind-spot', curve:t=>clamp(1-t*1.35) },
+      { id:'optical', type:'raster',         sw:'#5f7d4f', nm:'Optical · Sentinel-2 (2020-09)', curve:t=>0.10+0.90*clamp(1-t*1.05) },
       { id:'hv_2023', type:'raster',         sw:'#cfcfcf', nm:'SAR · PALSAR HV 2023',        curve:t=>0.95*clamp((t-0.12)/0.55) },
       { id:'loss',    type:'raster',         sw:'#e23b3b', nm:'SAR · HV-loss Δ (detection)', curve:t=>0.90*clamp((t-0.32)/0.50) },
       { id:'alerts',  type:'fill-extrusion', sw:'#e23b3b', nm:'Deforestation alerts (3D)',   curve:t=>0.90*clamp((t-0.42)/0.40) },
     ];
     const opProp = t => t === 'fill-extrusion' ? 'fill-extrusion-opacity' : 'raster-opacity';
 
+    // real Sentinel-2 optical (2020-09 monthly median; transparent where cloud-masked / no clear obs —
+    // those gaps ARE the per-pass cloud blind-spots, showing the OSM underlay through). Bounds per infra 0012.
+    const OPTICAL_COORDS = [[113.429105,-0.926635],[113.570921,-0.926635],[113.570921,-1.073316],[113.429105,-1.073316]];
     map.on('load', () => {
-      // draw order: OSM underlay (in style) → SAR rasters → optical → clouds → alerts(3D, top)
+      // draw order: OSM underlay → SAR rasters → real optical → alerts(3D, top)
       map.addSource('hv_2023', { type:'image', url:'./hv_2023.png', coordinates:coords });
       map.addLayer({ id:'hv_2023', type:'raster', source:'hv_2023',
         paint:{ 'raster-opacity':0, 'raster-resampling':'nearest', 'raster-fade-duration':0 } });
       map.addSource('loss', { type:'image', url:'./loss.png', coordinates:coords });
       map.addLayer({ id:'loss', type:'raster', source:'loss',
         paint:{ 'raster-opacity':0, 'raster-resampling':'nearest', 'raster-fade-duration':0 } });
-      map.addLayer({ id:'optical', type:'raster', source:'optical', paint:{ 'raster-opacity':1 } });
-      map.addSource('clouds', { type:'image', url:'./clouds.png', coordinates:coords });
-      map.addLayer({ id:'clouds', type:'raster', source:'clouds',
-        paint:{ 'raster-opacity':1, 'raster-fade-duration':0 } });
+      map.addSource('optical', { type:'image', url:'./optical_real.png', coordinates:OPTICAL_COORDS });
+      map.addLayer({ id:'optical', type:'raster', source:'optical', paint:{ 'raster-opacity':1, 'raster-fade-duration':0 } });
 
       map.addSource('alerts', { type:'geojson', data:'./alerts_2023.geojson' });
       const sev = ['*', -1, ['get','mean_delta_hv_db']];   // |Δ HV| dB
@@ -188,7 +190,7 @@
           `<b>HV-loss alert</b><br>area <b>${p.area_ha} ha</b> · ${p.n_px} px<br>`+
           `Δ HV mean <b>${p.mean_delta_hv_db}</b> · min ${p.min_delta_hv_db} dB · baseline ${p.baseline_hv_db} dB<br>`+
           `${b(Number(p.candidate_plantation_frontier),'plantation frontier','not frontier','#e23b3b')} `+
-          `${b(Number(p.hansen_gfc_2023),'Hansen 2023 ✓','SAR-only (cloud-hidden)','#6cd7ff')}`).addTo(map);
+          `${b(Number(p.hansen_gfc_2023),'Hansen 2023 ✓','SAR-only · not in Hansen annual','#6cd7ff')}`).addTo(map);
       });
     }
 
@@ -199,7 +201,7 @@
       const sarOnly = f.filter(x=>!x.properties.hansen_gfc_2023).length;
       const area = f.reduce((s,x)=>s+x.properties.area_ha,0).toFixed(0);
       const S = [['',f.length,'alerts',0],['',area,'ha cleared',0],['',frontier,'frontier',0],
-        ['',sarOnly,'SAR-only · cloud-hidden',1],['',(m.f1??'—'),'F1 vs Hansen',0],['',(m.object_precision_vs_hansen??'—'),'object precision',0]];
+        ['',sarOnly,'SAR-only vs Hansen',1],['',(m.f1??'—'),'F1 vs Hansen',0],['',(m.object_precision_vs_hansen??'—'),'object precision',0]];
       document.getElementById('stats').innerHTML = S.map(([,n,l,r])=>`<div><div class="n ${r?'red':''}">${n}</div><div class="l">${l}</div></div>`).join('');
     });
   });

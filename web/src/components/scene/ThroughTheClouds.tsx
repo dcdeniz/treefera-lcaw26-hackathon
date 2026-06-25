@@ -47,7 +47,7 @@ export function ThroughTheClouds({ aoi, alerts = [], summary = null, mode = 'dem
             // detection, with analyst chrome (layers, legend, identify, metrics). Served
             // self-contained from /public/qgis/map.html.
             <iframe
-              src="/qgis/map.html"
+              src="/qgis/map.html?embed=1"
               title="Through the Clouds — SAR-through-cloud isometric viewer"
               className="absolute inset-0 h-full w-full border-0"
             />
@@ -180,7 +180,7 @@ function Footer() {
   return (
     <footer className="border-t border-border px-8 py-4 text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
       <div className="mx-auto flex max-w-screen-2xl items-center justify-between">
-        <span>Optical can&apos;t see this. SAR already did.</span>
+        <span>Optical waits months for a clear pixel. SAR flagged it on the pass.</span>
         <span>built on jedorini · neat components</span>
       </div>
     </footer>
