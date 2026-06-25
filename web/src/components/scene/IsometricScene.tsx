@@ -8,6 +8,7 @@ type Props = {
   opticalOpacity: number  // 0..1
   sarOpacity: number      // 0..1
   alertsVisible: boolean
+  year: '2022' | '2023'
   onSelect: (a: Alert) => void
   selectedId?: string | null
 }
@@ -30,9 +31,14 @@ export function IsometricScene(props: Props) {
     opticalOpacity,
     sarOpacity,
     alertsVisible,
+    year,
     onSelect,
     selectedId,
   } = props
+  // year drives a subtle parallax of the SAR speckle so swapping 2022↔2023
+  // is a visible event, matching the contract's "PALSAR HV 2022 / HV 2023"
+  // layer requirement in §6.
+  const sarOffset = year === '2022' ? 0 : 3
 
   const sarCorners = useMemo(() => floorCorners(1, DECK_Z.sar, SIZE), [])
   const opticalCorners = useMemo(() => floorCorners(1, DECK_Z.optical, SIZE), [])
@@ -53,7 +59,13 @@ export function IsometricScene(props: Props) {
     >
       <defs>
         {/* SAR speckle: dense fine dots, full white on black ground */}
-        <pattern id="sar" width="6" height="6" patternUnits="userSpaceOnUse">
+        <pattern
+          id="sar"
+          width="6"
+          height="6"
+          patternUnits="userSpaceOnUse"
+          patternTransform={`translate(${sarOffset}, ${sarOffset})`}
+        >
           <rect width="6" height="6" fill="#0a0a0a" />
           <circle cx="1" cy="1" r="0.5" fill="#9a9a9a" />
           <circle cx="3" cy="4" r="0.4" fill="#c8c8c8" />
@@ -101,21 +113,21 @@ export function IsometricScene(props: Props) {
         </pattern>
       </defs>
 
-      {/* SAR layer (bottom) */}
-      <g opacity={sarOpacity}>
+      {/* SAR layer (bottom) — animate opacity for the spec's 600ms peel feel */}
+      <g opacity={sarOpacity} style={{ transition: 'opacity 600ms ease-out' }}>
         <path d={polyPath(sarCorners)} fill="url(#sar)" />
         <path d={polyPath(sarCorners)} fill="url(#sarGrid)" />
         <path d={polyPath(sarCorners)} fill="none" stroke="#ffffff" strokeWidth={1} />
       </g>
 
       {/* Optical layer */}
-      <g opacity={opticalOpacity}>
+      <g opacity={opticalOpacity} style={{ transition: 'opacity 600ms ease-out' }}>
         <path d={polyPath(opticalCorners)} fill="url(#optical)" />
         <path d={polyPath(opticalCorners)} fill="none" stroke="#ffffff" strokeWidth={1} />
       </g>
 
       {/* Cloud layer (top) */}
-      <g opacity={cloudOpacity}>
+      <g opacity={cloudOpacity} style={{ transition: 'opacity 600ms ease-out' }}>
         <path d={polyPath(cloudCorners)} fill="url(#cloud)" />
         <path d={polyPath(cloudCorners)} fill="none" stroke="#ffffff" strokeWidth={1} opacity={0.5} />
       </g>
