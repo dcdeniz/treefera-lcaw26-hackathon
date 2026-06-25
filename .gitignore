@@ -32,3 +32,8 @@ yarn-error.log*
 # Misc
 .wrangler/
 coverage/
+vendor/
+
+# NEAT — machine-local snapshots and events
+neat-out/
+neat.patch
