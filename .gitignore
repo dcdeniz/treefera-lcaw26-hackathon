@@ -9,6 +9,9 @@ build/
 out/
 .next/
 .cache/
+*.tsbuildinfo
+__pycache__/
+*.py[cod]
 
 # Env / secrets
 .env
