@@ -36,4 +36,4 @@ vendor/
 
 # NEAT — machine-local snapshots and events
 neat-out/
-neat-out/
+neat.patch
