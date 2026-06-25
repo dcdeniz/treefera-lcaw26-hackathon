@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { useMemo, useState } from 'react'
 import { IsometricScene } from '@/components/scene/IsometricScene'
 import { PeelControls } from '@/components/scene/PeelControls'
@@ -170,6 +171,12 @@ function Header({ mode }: { mode: 'demo' | 'live' }) {
           <Separator orientation="vertical" className="h-4" />
           <span>orchestration review</span>
         </div>
+        <Link
+          href="/information"
+          className="inline-flex h-8 cursor-pointer items-center border border-border bg-background px-3 font-mono text-[10px] uppercase tracking-[0.16em] hover:bg-accent"
+        >
+          ⓘ Information
+        </Link>
         <DecisionsButton />
       </div>
     </header>
