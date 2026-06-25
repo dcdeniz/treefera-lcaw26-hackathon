@@ -104,7 +104,7 @@
       layers: [{ id:'osm', type:'raster', source:'osm', paint:{ 'raster-opacity':0.9 } }],
     };
     const map = new maplibregl.Map({ container:'map', style, center:M.center, zoom:12.2,
-      pitch:58, bearing:-17, maxPitch:82, attributionControl:{ compact:true } });
+      minZoom:8, pitch:58, bearing:-17, maxPitch:82, attributionControl:{ compact:true } });
     map.addControl(new maplibregl.NavigationControl({ visualizePitch:true }), 'bottom-right');
 
     // reveal layers: id · type · reveal curve(t→opacity) · swatch · label
