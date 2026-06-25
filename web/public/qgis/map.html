@@ -108,7 +108,9 @@
     map.addControl(new maplibregl.NavigationControl({ visualizePitch:true }), 'bottom-right');
 
     // reveal layers: id · type · reveal curve(t→opacity) · swatch · label
+    // Order matters for the peel narrative: clouds fade first → optical fades → SAR emerges → alerts emerge.
     const REV = [
+      { id:'cloud_nobs', type:'raster',      sw:'#dfe6ef', nm:'Cloud blind-spot · no clear obs (2020-09)', curve:t=>clamp(1 - t*1.35) },
       { id:'optical', type:'raster',         sw:'#5f7d4f', nm:'Optical · Sentinel-2 (2020-09)', curve:t=>0.10+0.90*clamp(1-t*1.05) },
       { id:'hv_2023', type:'raster',         sw:'#cfcfcf', nm:'SAR · PALSAR HV 2023',        curve:t=>0.95*clamp((t-0.12)/0.55) },
       { id:'loss',    type:'raster',         sw:'#e23b3b', nm:'SAR · HV-loss Δ (detection)', curve:t=>0.90*clamp((t-0.32)/0.50) },
@@ -120,7 +122,7 @@
     // those gaps ARE the per-pass cloud blind-spots, showing the OSM underlay through). Bounds per infra 0012.
     const OPTICAL_COORDS = [[113.429105,-0.926635],[113.570921,-0.926635],[113.570921,-1.073316],[113.429105,-1.073316]];
     map.on('load', () => {
-      // draw order: OSM underlay → SAR rasters → real optical → alerts(3D, top)
+      // draw order: OSM underlay → SAR rasters → real optical → cloud blind-spot → alerts(3D, top)
       map.addSource('hv_2023', { type:'image', url:'./hv_2023.png', coordinates:coords });
       map.addLayer({ id:'hv_2023', type:'raster', source:'hv_2023',
         paint:{ 'raster-opacity':0, 'raster-resampling':'nearest', 'raster-fade-duration':0 } });
@@ -129,6 +131,11 @@
         paint:{ 'raster-opacity':0, 'raster-resampling':'nearest', 'raster-fade-duration':0 } });
       map.addSource('optical', { type:'image', url:'./optical_real.png', coordinates:OPTICAL_COORDS });
       map.addLayer({ id:'optical', type:'raster', source:'optical', paint:{ 'raster-opacity':1, 'raster-fade-duration':0 } });
+      // honest cloud blind-spot: n_obs(2020-09)==0 = pixels with zero clear optical observations
+      // that month. Same bounds as optical_real. Peels first on the gradient.
+      map.addSource('cloud_nobs', { type:'image', url:'./cloud_nobs.png', coordinates:OPTICAL_COORDS });
+      map.addLayer({ id:'cloud_nobs', type:'raster', source:'cloud_nobs',
+        paint:{ 'raster-opacity':1, 'raster-fade-duration':0 } });
 
       map.addSource('alerts', { type:'geojson', data:'./alerts_2023.geojson' });
       const sev = ['*', -1, ['get','mean_delta_hv_db']];   // |Δ HV| dB
