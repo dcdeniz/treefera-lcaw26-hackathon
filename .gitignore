@@ -41,6 +41,11 @@ coverage/
 /data/
 solution/.venv/
 .venv/
+vendor/
+
+# NEAT — machine-local snapshots and events
+neat-out/
+neat.patch
 
 # Live credentials — never commit (see conversations/0004)
 SECRETS.md
