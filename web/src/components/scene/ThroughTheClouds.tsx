@@ -5,7 +5,7 @@ import { IsometricScene } from '@/components/scene/IsometricScene'
 import { PeelControls } from '@/components/scene/PeelControls'
 import { BottomStats } from '@/components/scene/BottomStats'
 import { AlertDrawer } from '@/components/scene/AlertDrawer'
-import { MethodologyStrip } from '@/components/scene/MethodologyStrip'
+import { CommercialTabs } from '@/components/scene/CommercialTabs'
 import { DecisionsButton } from '@/components/scene/DecisionsButton'
 import { Separator } from '@/components/ui/separator'
 import { Badge } from '@/components/ui/badge'
@@ -135,7 +135,7 @@ export function ThroughTheClouds({ aoi, alerts = [], summary = null, mode = 'dem
           f1={summary?.validation.f1 ?? 0}
         />
 
-        <MethodologyStrip />
+        <CommercialTabs />
       </main>
 
       <AlertDrawer alert={selected} onClose={() => setSelected(null)} />
