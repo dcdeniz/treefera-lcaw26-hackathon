@@ -14,6 +14,7 @@ type CustomerTarget = {
   name: string
   segment: string
   reason: string
+  emails?: string[]
 }
 
 const currentCustomers: CustomerTarget[] = [
@@ -22,24 +23,28 @@ const currentCustomers: CustomerTarget[] = [
     segment: 'Palm trader',
     reason:
       'They have Kalimantan, Sabah, and Sarawak exposure and need auditable EUDR and NDPE proof for supplier catchments under cloud.',
+    emails: ['csr@wilmar.com.sg', 'ir@wilmar.com.sg', 'palmandlaurics@wilmar.com.sg'],
   },
   {
     name: 'Bumitama Agri',
     segment: 'Borneo palm',
     reason:
       'They are concentrated in the Borneo palm frontier, so a 30-day SAR pilot can show estate and adjacent-area forest-loss risk directly.',
+    emails: ['sustainability@bumitama-agri.com', 'investor.relations@bumitama-agri.com'],
   },
   {
-    name: 'First Resources',
+    name: 'Kuala Lumpur Kepong',
     segment: 'Plantations',
     reason:
-      'They operate in East and West Kalimantan and can use alert polygons to screen estates and suppliers before compliance reviews.',
+      'They have plantation compliance and investor-facing sustainability pressure, making a Borneo SAR evidence pilot a clean EUDR wedge.',
+    emails: ['contactus@klk.com.my', 'corp.comms@klk.com.my', 'mktg@klk.com.my'],
   },
   {
     name: 'Permian Global / Katingan Mentaya',
     segment: 'Carbon MRV',
     reason:
       'They need independent monitoring for Central Kalimantan peat forest, leakage, and verification evidence where optical imagery is weak.',
+    emails: ['info@permianglobal.com'],
   },
 ]
 
@@ -144,6 +149,19 @@ function CustomerBox({
                 <p className="text-xs leading-relaxed text-muted-foreground">
                   {customer.reason}
                 </p>
+                {customer.emails && (
+                  <div className="flex flex-wrap gap-1.5 pt-1">
+                    {customer.emails.map((email) => (
+                      <Badge
+                        key={email}
+                        variant="outline"
+                        className="h-auto max-w-full justify-start whitespace-normal break-all px-1.5 py-1 font-mono text-[10px] normal-case leading-tight tracking-normal"
+                      >
+                        {email}
+                      </Badge>
+                    ))}
+                  </div>
+                )}
               </div>
               <Badge
                 variant="secondary"
