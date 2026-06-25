@@ -34,6 +34,8 @@ async function main() {
 
   const run = {
     aoi_id: AOI_ID,
+    source: 'web-ingest', // tags our docs so the upsert filter below can't ever match
+                          // another producer's run (e.g. the qgis-mcp ingester, conv 0009).
     year_pair: [2022, 2023],
     thresholds,
     metrics, // full object verbatim — no data invented (UA/PA/F1/area + tp/fp/fn/hansen/object-precision)
@@ -58,8 +60,11 @@ async function main() {
     { $set: { bbox: payload.aoi.bbox, name: payload.aoi.name, centre: payload.aoi.centre } },
   )
 
-  // Idempotent per (aoi, git_sha): re-running the same commit won't pile up dupes.
-  await db.collection('alert_runs').replaceOne({ aoi_id: AOI_ID, git_sha }, run, { upsert: true })
+  // Idempotent per (aoi, git_sha) AND scoped to source:"web-ingest" so this upsert can
+  // ONLY ever match our own docs — never another producer's run at the same commit
+  // (the qgis-mcp ingester keys on run_id; conv 0009 clobber-path fix).
+  await db.collection('alert_runs').replaceOne(
+    { aoi_id: AOI_ID, git_sha, source: 'web-ingest' }, run, { upsert: true })
 
   const count = await db.collection('alert_runs').countDocuments({ aoi_id: AOI_ID })
   console.log(JSON.stringify({
