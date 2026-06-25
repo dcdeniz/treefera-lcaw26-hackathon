@@ -1,0 +1,49 @@
+# Through-the-Clouds — QGIS-as-a-service (overrides over vendored QgisStreamMCP).
+#
+# Brings up a headless QGIS Desktop exposing MCP Streamable HTTP (:8100/mcp) + a
+# REST health surface (:8080). Our Borneo datasource catalog and ttc_* recipes are
+# mounted OVER the vendor's French defaults; real SAR inputs mount read-only.
+#
+#   docker compose -f mcp/compose.yml up -d --build
+#   curl http://localhost:8080/health          # REST health
+#   open  http://localhost:6080                # noVNC (QGIS in browser)
+#
+# NOTE (Apple Silicon): the vendor Dockerfile pins the QGIS apt repo to arch=amd64,
+# so we build/run under linux/amd64 emulation. This is slow and, per the handoff
+# §12, sometimes flaky under Docker Desktop's qemu. The data→Mongo→REST layer does
+# NOT depend on this container (see mcp/README.md §"Two-track design").
+name: ttc-qgis-mcp
+
+services:
+  qgisstreammcp:
+    build:
+      context: ../vendor/qgis-stream-mcp
+      dockerfile: Dockerfile
+    platform: linux/amd64
+    container_name: ttc-qgisstreammcp
+    ports:
+      - "${MCP_PORT:-8100}:8100"        # MCP Server (Streamable HTTP)
+      - "${REST_PORT:-18080}:8080"      # REST API + /health (18080 host; 8080 often taken locally)
+      - "${QGIS_VNC_PORT:-6080}:6080"   # noVNC (QGIS in browser)
+      # MJPEG :8081 intentionally not published (not needed; commonly conflicts).
+    environment:
+      - QGIS_RESOLUTION=${QGIS_RESOLUTION:-1600x900x24}
+      - MCP_PORT=8100
+      - PYTHONUNBUFFERED=1
+    volumes:
+      # Our Borneo catalog + recipes replace the vendor's French defaults.
+      - ./datasources.borneo.json:/app/datasources.json:ro
+      - ./recipes:/app/recipes:ro
+      - ./config:/app/ttc-config:ro
+      # Real SAR inputs (read-only) + a host-visible outputs dir.
+      - ../real-data:/data/inputs:ro
+      - ./outputs:/data/outputs
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-sf", "http://localhost:8080/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 120s

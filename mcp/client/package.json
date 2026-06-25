@@ -1,0 +1,24 @@
+{
+  "name": "ttc-mcp-client",
+  "private": true,
+  "type": "module",
+  "version": "0.1.0",
+  "description": "Through-the-Clouds MCP client + Mongo ingester: drives the QGIS-MCP ttc_full recipe and ingests alerts into through_the_clouds.",
+  "scripts": {
+    "tools": "tsx src/cli.ts tools",
+    "pipeline": "node --env-file-if-exists=../../web/.env.local --import tsx src/cli.ts pipeline",
+    "ingest": "node --env-file-if-exists=../../web/.env.local --import tsx src/cli.ts ingest",
+    "init-db": "node --env-file-if-exists=../../web/.env.local --import tsx src/cli.ts init-db",
+    "verify": "node --env-file-if-exists=../../web/.env.local --import tsx src/cli.ts verify",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.0",
+    "mongodb": "^6.12.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  }
+}

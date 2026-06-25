@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Through the Clouds — SAR-through-cloud isometric viewer</title>
+  <link href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet" />
+  <style>
+    :root { --bg:#070809; --ink:#e8eaed; --muted:#838a93; --line:#1b212a; --red:#e23b3b; --cloud:#dfe6ef; }
+    * { box-sizing:border-box; }
+    html,body { margin:0; height:100%; background:var(--bg); color:var(--ink);
+      font-family:ui-monospace,"DM Mono","SF Mono",Menlo,monospace; overflow:hidden; }
+    #map { position:absolute; inset:0; }
+    .panel { position:absolute; z-index:5; background:rgba(7,8,9,.85); border:1px solid var(--line);
+      border-radius:9px; backdrop-filter:blur(9px); -webkit-backdrop-filter:blur(9px); }
+    #layers { top:12px; left:12px; width:236px; padding:9px 11px; }
+    #layers .ttl,#legend .ttl { font-size:9px; letter-spacing:.12em; color:var(--muted); text-transform:uppercase; margin:0 2px 7px; }
+    .lyr { display:flex; align-items:center; gap:8px; padding:4px 2px; border-top:1px solid #11161d; font-size:11px; }
+    .lyr:first-of-type{ border-top:none; }
+    .lyr input{ accent-color:#cdd3da; width:13px; height:13px; }
+    .sw { width:11px; height:11px; border-radius:2px; display:inline-block; flex:0 0 auto; }
+    #hud { top:12px; right:12px; width:232px; padding:11px 13px; }
+    #hud h1 { margin:0; font-size:12.5px; letter-spacing:.05em; }
+    #hud .sub { color:var(--muted); font-size:10px; line-height:1.5; margin:5px 0 10px; }
+    #hud .stats { display:grid; grid-template-columns:1fr 1fr; gap:8px 12px; }
+    #hud .n { font-size:16px; font-weight:600; line-height:1; } #hud .n.red{ color:var(--red); }
+    #hud .l { font-size:8.5px; color:var(--muted); text-transform:uppercase; letter-spacing:.05em; margin-top:3px; }
+    #legend { bottom:78px; left:12px; width:236px; padding:9px 11px; font-size:10px; }
+    #legend .ramp { height:9px; border-radius:2px; margin:3px 0 1px; }
+    #legend .ax { display:flex; justify-content:space-between; color:var(--muted); font-size:8.5px; }
+    #legend .blk { margin-top:9px; }
+    /* the gradient reveal — the hero control */
+    #reveal { bottom:30px; left:50%; transform:translateX(-50%); width:min(640px,86vw); padding:10px 16px 12px; }
+    #reveal .lab { display:flex; justify-content:space-between; font-size:9.5px; letter-spacing:.06em; margin-bottom:7px; }
+    #reveal .lab .a{ color:var(--cloud); } #reveal .lab .b{ color:var(--red); }
+    #reveal .track { position:relative; }
+    #reveal input[type=range]{ -webkit-appearance:none; appearance:none; width:100%; height:7px; border-radius:6px; outline:none;
+      background:linear-gradient(90deg,var(--cloud) 0%,#9fb0c4 28%,#8a6a78 52%,#d2522f 76%,var(--red) 100%); }
+    #reveal input[type=range]::-webkit-slider-thumb{ -webkit-appearance:none; width:16px; height:16px; border-radius:50%;
+      background:#fff; border:2px solid #070809; box-shadow:0 0 0 1px #fff; cursor:ew-resize; }
+    #reveal .play { position:absolute; right:-2px; top:-30px; background:rgba(7,8,9,.85); border:1px solid var(--line);
+      color:var(--ink); font:inherit; font-size:10px; padding:3px 9px; border-radius:6px; cursor:pointer; }
+    /* QGIS-style status bar */
+    #status { left:0; right:0; bottom:0; height:24px; border-radius:0; border:none; border-top:1px solid var(--line);
+      display:flex; align-items:center; gap:15px; padding:0 12px; font-size:10.5px; color:var(--muted); z-index:6; }
+    #status b{ color:var(--ink); font-weight:500; } #status .id{ color:var(--ink); }
+    .maplibregl-popup-content{ background:#0d1219; color:var(--ink); border:1px solid var(--line); border-radius:7px;
+      font:inherit; font-size:11px; padding:9px 11px; } .maplibregl-popup-content b{ color:#fff; }
+    .maplibregl-popup-tip{ border-top-color:#0d1219!important; }
+    .badge{ display:inline-block; padding:1px 5px; border-radius:4px; font-size:9px; }
+    .maplibregl-ctrl-group{ background:#0d1219; } .maplibregl-ctrl-group button{ filter:invert(.9); }
+    .maplibregl-ctrl-attrib{ background:rgba(7,8,9,.6)!important; } .maplibregl-ctrl-attrib a{ color:var(--muted)!important; }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+
+  <div id="layers" class="panel"><p class="ttl">Layers</p><div id="lyrlist"></div></div>
+
+  <div id="hud" class="panel">
+    <h1>THROUGH THE CLOUDS</h1>
+    <div class="sub">Central Kalimantan, Borneo. Optical is blind under permanent cloud — L-band SAR sees the canopy loss beneath it. Drag the gradient ↓ to peel the clouds.</div>
+    <div class="stats" id="stats"></div>
+  </div>
+
+  <div id="legend" class="panel">
+    <div class="ttl">PALSAR HV backscatter (γ⁰ dB)</div>
+    <div class="ramp" style="background:linear-gradient(90deg,#000,#fff)"></div>
+    <div class="ax"><span>−16</span><span>forest bright →</span><span>−6 dB</span></div>
+    <div class="blk ttl">HV loss Δ — deforestation</div>
+    <div class="ramp" style="background:linear-gradient(90deg,rgba(255,210,40,.4),#e23b3b,#9c0f12)"></div>
+    <div class="ax"><span>−0.5</span><span>backscatter drop</span><span>−7 dB</span></div>
+    <div class="blk"><span class="sw" style="background:var(--red);vertical-align:-1px"></span> alert prism — height &amp; colour = |Δ HV|</div>
+  </div>
+
+  <div id="reveal" class="panel">
+    <button class="play" id="play">▷ replay</button>
+    <div class="lab"><span class="a">◐ PHOTOGRAPHIC + CLOUDS</span><span>SAR methodology →</span><span class="b">DEFORESTATION DETECTED ◑</span></div>
+    <div class="track"><input id="rev" type="range" min="0" max="100" value="0"></div>
+  </div>
+
+  <div id="status" class="panel">
+    <span>lng <b id="lng">—</b></span><span>lat <b id="lat">—</b></span>
+    <span>z <b id="z">—</b> · pitch <b id="p">—</b>°</span>
+    <span class="id" id="identify">— hover an alert to identify —</span>
+  </div>
+
+  <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+  <script>
+  const clamp = (v) => Math.max(0, Math.min(1, v));
+  fetch('./overlays_manifest.json').then(r => r.json()).then(M => {
+    const coords = M.coordinates;
+    const style = {
+      version: 8,
+      sources: {
+        osm: { type:'raster', tileSize:256, tiles:['https://tile.openstreetmap.org/{z}/{x}/{y}.png'],
+          attribution:'© OpenStreetMap contributors' },
+        optical: { type:'raster', tileSize:256,
+          tiles:['https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'],
+          attribution:'Esri World Imagery · PALSAR-2 © JAXA' },
+      },
+      layers: [{ id:'osm', type:'raster', source:'osm', paint:{ 'raster-opacity':0.9 } }],
+    };
+    const map = new maplibregl.Map({ container:'map', style, center:M.center, zoom:12.2,
+      pitch:58, bearing:-17, maxPitch:82, attributionControl:{ compact:true } });
+    map.addControl(new maplibregl.NavigationControl({ visualizePitch:true }), 'bottom-right');
+
+    // reveal layers: id · type · reveal curve(t→opacity) · swatch · label
+    const REV = [
+      { id:'optical', type:'raster',         sw:'#5f7d4f', nm:'Photographic (Esri optical)', curve:t=>0.10+0.90*clamp(1-t*1.05) },
+      { id:'clouds',  type:'raster',         sw:'#dfe6ef', nm:'Clouds — optical blind-spot', curve:t=>clamp(1-t*1.35) },
+      { id:'hv_2023', type:'raster',         sw:'#cfcfcf', nm:'SAR · PALSAR HV 2023',        curve:t=>0.95*clamp((t-0.12)/0.55) },
+      { id:'loss',    type:'raster',         sw:'#e23b3b', nm:'SAR · HV-loss Δ (detection)', curve:t=>0.90*clamp((t-0.32)/0.50) },
+      { id:'alerts',  type:'fill-extrusion', sw:'#e23b3b', nm:'Deforestation alerts (3D)',   curve:t=>0.90*clamp((t-0.42)/0.40) },
+    ];
+    const opProp = t => t === 'fill-extrusion' ? 'fill-extrusion-opacity' : 'raster-opacity';
+
+    map.on('load', () => {
+      // draw order: OSM underlay (in style) → SAR rasters → optical → clouds → alerts(3D, top)
+      map.addSource('hv_2023', { type:'image', url:'./hv_2023.png', coordinates:coords });
+      map.addLayer({ id:'hv_2023', type:'raster', source:'hv_2023',
+        paint:{ 'raster-opacity':0, 'raster-resampling':'nearest', 'raster-fade-duration':0 } });
+      map.addSource('loss', { type:'image', url:'./loss.png', coordinates:coords });
+      map.addLayer({ id:'loss', type:'raster', source:'loss',
+        paint:{ 'raster-opacity':0, 'raster-resampling':'nearest', 'raster-fade-duration':0 } });
+      map.addLayer({ id:'optical', type:'raster', source:'optical', paint:{ 'raster-opacity':1 } });
+      map.addSource('clouds', { type:'image', url:'./clouds.png', coordinates:coords });
+      map.addLayer({ id:'clouds', type:'raster', source:'clouds',
+        paint:{ 'raster-opacity':1, 'raster-fade-duration':0 } });
+
+      map.addSource('alerts', { type:'geojson', data:'./alerts_2023.geojson' });
+      const sev = ['*', -1, ['get','mean_delta_hv_db']];   // |Δ HV| dB
+      map.addLayer({ id:'alerts', type:'fill-extrusion', source:'alerts', paint:{
+        'fill-extrusion-height': ['*', sev, 160], 'fill-extrusion-base':0, 'fill-extrusion-opacity':0,
+        'fill-extrusion-color': ['interpolate',['linear'], sev, 2.5,'#f2d24b',3.5,'#f2913b',4.5,'#e23b3b',6.5,'#9c0f12'] } });
+
+      buildPanel(); identify(); setReveal(0);
+      // demonstrate the gradient once, then leave the slider in the analyst's hands
+      animateReveal(0, 1, 2600);
+    });
+
+    function setReveal(t) {
+      REV.forEach(L => map.setPaintProperty(L.id, opProp(L.type), L.curve(t)));
+      document.getElementById('rev').value = Math.round(t * 100);
+    }
+    let raf = null;
+    function animateReveal(from, to, ms) {
+      const t0 = performance.now();
+      cancelAnimationFrame(raf);
+      const step = (now) => {
+        const k = clamp((now - t0) / ms);
+        const e = k < 0.5 ? 2*k*k : 1 - Math.pow(-2*k+2,2)/2; // easeInOut
+        setReveal(from + (to - from) * e);
+        if (k < 1) raf = requestAnimationFrame(step);
+      };
+      raf = requestAnimationFrame(step);
+    }
+    document.getElementById('rev').addEventListener('input', e => { cancelAnimationFrame(raf); setReveal(+e.target.value/100); });
+    document.getElementById('play').addEventListener('click', () => { setReveal(0); animateReveal(0,1,2600); });
+
+    function buildPanel() {
+      const rows = [{ id:'osm', type:'raster', sw:'#9fb0c4', nm:'OpenStreetMap (underlay)' }, ...REV];
+      document.getElementById('lyrlist').innerHTML = rows.map(r => `
+        <label class="lyr"><input type="checkbox" data-id="${r.id}" checked>
+        <span class="sw" style="background:${r.sw}"></span>${r.nm}</label>`).join('');
+      document.querySelectorAll('#lyrlist input').forEach(cb => cb.addEventListener('change', e =>
+        map.setLayoutProperty(e.target.dataset.id, 'visibility', e.target.checked ? 'visible' : 'none')));
+    }
+
+    function identify() {
+      const idEl = document.getElementById('identify');
+      map.on('mousemove', e => {
+        document.getElementById('lng').textContent = e.lngLat.lng.toFixed(5);
+        document.getElementById('lat').textContent = e.lngLat.lat.toFixed(5);
+        document.getElementById('z').textContent = map.getZoom().toFixed(1);
+        document.getElementById('p').textContent = map.getPitch().toFixed(0);
+        const fs = map.queryRenderedFeatures(e.point, { layers:['alerts'] });
+        map.getCanvas().style.cursor = fs.length ? 'pointer' : '';
+        if (fs.length) { const p = fs[0].properties;
+          idEl.innerHTML = `alert · <b>${p.area_ha} ha</b> · Δ ${p.mean_delta_hv_db} dB · baseline ${p.baseline_hv_db} dB · ` +
+            (Number(p.candidate_plantation_frontier)?'<b>frontier</b>':'non-frontier') + ' · ' +
+            (Number(p.hansen_gfc_2023)?'Hansen ✓':'SAR-only');
+        } else idEl.textContent = '— hover an alert to identify —';
+      });
+      map.on('click', 'alerts', e => { const p = e.features[0].properties;
+        const b = (ok,y,n,c)=>`<span class="badge" style="background:${ok?c:'#1c222b'};color:${ok?'#000':'#838a93'}">${ok?y:n}</span>`;
+        new maplibregl.Popup().setLngLat(e.lngLat).setHTML(
+          `<b>HV-loss alert</b><br>area <b>${p.area_ha} ha</b> · ${p.n_px} px<br>`+
+          `Δ HV mean <b>${p.mean_delta_hv_db}</b> · min ${p.min_delta_hv_db} dB · baseline ${p.baseline_hv_db} dB<br>`+
+          `${b(Number(p.candidate_plantation_frontier),'plantation frontier','not frontier','#e23b3b')} `+
+          `${b(Number(p.hansen_gfc_2023),'Hansen 2023 ✓','SAR-only (cloud-hidden)','#6cd7ff')}`).addTo(map);
+      });
+    }
+
+    const m = M.metrics || {};
+    fetch('./alerts_2023.geojson').then(r=>r.json()).then(fc => {
+      const f = fc.features || [];
+      const frontier = f.filter(x=>x.properties.candidate_plantation_frontier).length;
+      const sarOnly = f.filter(x=>!x.properties.hansen_gfc_2023).length;
+      const area = f.reduce((s,x)=>s+x.properties.area_ha,0).toFixed(0);
+      const S = [['',f.length,'alerts',0],['',area,'ha cleared',0],['',frontier,'frontier',0],
+        ['',sarOnly,'SAR-only · cloud-hidden',1],['',(m.f1??'—'),'F1 vs Hansen',0],['',(m.object_precision_vs_hansen??'—'),'object precision',0]];
+      document.getElementById('stats').innerHTML = S.map(([,n,l,r])=>`<div><div class="n ${r?'red':''}">${n}</div><div class="l">${l}</div></div>`).join('');
+    });
+  });
+  </script>
+</body>
+</html>

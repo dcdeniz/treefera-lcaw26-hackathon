@@ -1,0 +1,49 @@
+{
+  "version": "1.0",
+  "description": "Through-the-Clouds — Borneo SAR catalog. Replaces the vendor's French (IGN/BD TOPO) defaults. Local rasters are read by ttc_* recipes via add_layer with explicit /data/inputs paths (mounted read-only from ../real-data).",
+  "categories": ["basemap", "sar", "reference"],
+  "sources": [
+    {
+      "id": "cartodb_dark",
+      "name": "CartoDB Dark Matter",
+      "category": "basemap",
+      "type": "xyz",
+      "url": "https://cartodb-basemaps-a.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png",
+      "params": {"zmin": "0", "zmax": "19"},
+      "description": "Dark basemap (matches the NEAT monochrome frontend aesthetic)."
+    },
+    {
+      "id": "esri_world_imagery",
+      "name": "Esri World Imagery",
+      "category": "basemap",
+      "type": "xyz",
+      "url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+      "params": {"zmin": "0", "zmax": "19"},
+      "description": "Optical context (cloud-obscured over the AOI — the reason this project uses SAR)."
+    },
+    {
+      "id": "palsar_hv_2022",
+      "name": "PALSAR-2 HV 2022 (gamma0 dB)",
+      "category": "sar",
+      "type": "raster",
+      "path": "/data/inputs/palsar_gee/G_sar_borneo/annual/2022/palsar_G_sar_borneo_2022.tif",
+      "description": "ALOS-2 PALSAR-2 L-band HV annual mosaic, baseline year. Already calibrated to gamma0 dB (ADR-0003)."
+    },
+    {
+      "id": "palsar_hv_2023",
+      "name": "PALSAR-2 HV 2023 (gamma0 dB)",
+      "category": "sar",
+      "type": "raster",
+      "path": "/data/inputs/palsar_gee/G_sar_borneo/annual/2023/palsar_G_sar_borneo_2023.tif",
+      "description": "ALOS-2 PALSAR-2 L-band HV annual mosaic, comparison year."
+    },
+    {
+      "id": "hansen_lossyear",
+      "name": "Hansen GFC loss-year",
+      "category": "reference",
+      "type": "raster",
+      "path": "/data/inputs/hansen_lossyear/G_sar_borneo/hansen-lossyear_G_sar_borneo_2024.tif",
+      "description": "Hansen Global Forest Change loss-year (0=none, n→2000+n). Optical/cloud-limited cross-reference, NOT ground truth (ADR-0005)."
+    }
+  ]
+}
