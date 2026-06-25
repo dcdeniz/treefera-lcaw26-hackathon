@@ -32,8 +32,20 @@ yarn-error.log*
 # Misc
 .wrangler/
 coverage/
+
+# Large data (downloaded, not versioned)
+# Anchored with a leading slash so these match ONLY the top-level Drive downloads.
+# An unanchored `data/` also matches solution/webapp/public/data/ (the static demo
+# bundle), which MUST ship with the repo for the demo to render (INFRA_CONTRACT §4.1).
+/real-data/
+/data/
+solution/.venv/
+.venv/
 vendor/
 
 # NEAT — machine-local snapshots and events
 neat-out/
 neat.patch
+
+# Live credentials — never commit (see conversations/0004)
+SECRETS.md

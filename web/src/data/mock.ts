@@ -1,27 +1,14 @@
-export type Alert = {
-  id: string
-  centroid: [number, number] // x, y in AOI normalised [0,1] space (for the isometric layout)
-  area_ha: number
-  mean_delta_hv_db: number
-  min_delta_hv_db: number
-  baseline_hv_db: number
-  candidate_plantation_frontier: boolean
-  cross_checks: {
-    hansen_gfc_2023: boolean
-    radd_2023: boolean
-    spot_visual: 'forest' | 'cleared' | 'unclear'
-  }
-  // a small mocked monthly delta time series, 12 months 2023
-  delta_series: number[]
-}
+import type { Alert, Summary } from '@/lib/types'
+import { AOI } from '@/lib/aoi'
 
-export const aoi = {
-  bbox: [113.25, -1.25, 113.75, -0.75] as [number, number, number, number],
-  name: 'Central Kalimantan SAR-through-clouds hotspot',
-  centre: [-1.0, 113.5] as [number, number],
-}
+// Re-export the canonical type so scene components importing `Alert` from here
+// keep working; the source of truth is @/lib/types.
+export type { Alert } from '@/lib/types'
 
-export const summary = {
+// AOI is real config (not mock); surfaced here for the /demo route's convenience.
+export const aoi = AOI
+
+export const summary: Summary = {
   alert_count: 142,
   total_alert_area_ha: 318.6,
   alert_area_pct_of_aoi: 1.4,

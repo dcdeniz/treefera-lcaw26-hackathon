@@ -1,0 +1,23 @@
+{
+  "dataset": "ESRI / Impact Observatory 10m Annual Land Cover Time Series",
+  "source_asset": "projects/sat-io/open-datasets/landcover/ESRI_Global-LULC_10m_TS",
+  "licence": "CC-BY-4.0",
+  "nodata": 0,
+  "nodata_note": "0 = no data / outside AOI",
+  "palette": "ESRI Living Atlas / Land Cover Explorer",
+  "classes": {
+    "1": {"name": "Water", "hex": "#419bdf"},
+    "2": {"name": "Trees", "hex": "#397d49"},
+    "4": {"name": "Flooded vegetation", "hex": "#7a87c6"},
+    "5": {"name": "Crops", "hex": "#e49635"},
+    "7": {"name": "Built area", "hex": "#c4281b"},
+    "8": {"name": "Bare ground", "hex": "#a59b8f"},
+    "9": {"name": "Snow/Ice", "hex": "#a8ebff"},
+    "10": {"name": "Clouds", "hex": "#616161"},
+    "11": {"name": "Rangeland", "hex": "#e3e2c3"}
+  },
+  "unused_codes": {
+    "3": "Grass — merged into Rangeland (11) in the v3 time series",
+    "6": "Scrub — merged into Rangeland (11) in the v3 time series"
+  }
+}

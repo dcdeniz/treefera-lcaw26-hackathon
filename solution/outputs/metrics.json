@@ -1,0 +1,31 @@
+{
+  "grid": [
+    214,
+    238
+  ],
+  "valid_pixels": 37298,
+  "n_features": 67,
+  "random_cv": {
+    "accuracy": 0.965467317282428,
+    "macro_f1": 0.8910984846890087
+  },
+  "spatial_cv": {
+    "accuracy": 0.9520617727492091,
+    "macro_f1": 0.6795371307385715
+  },
+  "leakage_accuracy": 0.01340554453321885,
+  "sar_ablation": {
+    "aef_only_acc": 0.95077484047402,
+    "fused_acc": 0.9520617727492091,
+    "aef_only_f1": 0.6830894393440636,
+    "fused_f1": 0.6795371307385715,
+    "delta_acc": 0.0012869322751890566
+  },
+  "forest_detection_spatial_cv": {
+    "precision": 0.915661167200197,
+    "recall": 0.9607285880377212
+  },
+  "forest_pixels": 7765,
+  "hansen_loss_pixels": 830,
+  "runtime_sec": 73.5
+}

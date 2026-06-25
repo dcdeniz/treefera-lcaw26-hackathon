@@ -1,0 +1,1701 @@
+{
+  "aoi": {
+    "bbox": [
+      113.4291,
+      -1.0733,
+      113.5709,
+      -0.9266
+    ],
+    "name": "Central Kalimantan SAR-through-clouds hotspot",
+    "centre": [
+      -0.9999,
+      113.5
+    ]
+  },
+  "summary": {
+    "alert_count": 54,
+    "total_alert_area_ha": 136.8,
+    "alert_area_pct_of_aoi": 0.53,
+    "validation": {
+      "users_accuracy": 0.401,
+      "producers_accuracy": 0.301,
+      "f1": 0.344
+    }
+  },
+  "alerts": [
+    {
+      "id": "a_0001",
+      "centroid": [
+        0.6007,
+        0.9949
+      ],
+      "area_ha": 2.312,
+      "mean_delta_hv_db": -4.49,
+      "min_delta_hv_db": -5.9,
+      "baseline_hv_db": -10.96,
+      "candidate_plantation_frontier": true,
+      "cross_checks": {
+        "hansen_gfc_2023": true,
+        "radd_2023": false,
+        "spot_visual": "unclear"
+      },
+      "delta_series": [
+        -4.49,
+        -4.49,
+        -4.49,
+        -4.49,
+        -4.49,
+        -4.49,
+        -4.49,
+        -4.49,
+        -4.49,
+        -4.49,
+        -4.49,
+        -4.49
+      ]
+    },
+    {
+      "id": "a_0002",
+      "centroid": [
+        0.6909,
+        0.9679
+      ],
+      "area_ha": 1.687,
+      "mean_delta_hv_db": -3.68,
+      "min_delta_hv_db": -6.08,
+      "baseline_hv_db": -10.65,
+      "candidate_plantation_frontier": true,
+      "cross_checks": {
+        "hansen_gfc_2023": true,
+        "radd_2023": false,
+        "spot_visual": "unclear"
+      },
+      "delta_series": [
+        -3.68,
+        -3.68,
+        -3.68,
+        -3.68,
+        -3.68,
+        -3.68,
+        -3.68,
+        -3.68,
+        -3.68,
+        -3.68,
+        -3.68,
+        -3.68
+      ]
+    },
+    {
+      "id": "a_0003",
+      "centroid": [
+        0.5365,
+        0.9533
+      ],
+      "area_ha": 0.562,
+      "mean_delta_hv_db": -3.52,
+      "min_delta_hv_db": -4.42,
+      "baseline_hv_db": -11.15,
+      "candidate_plantation_frontier": false,
+      "cross_checks": {
+        "hansen_gfc_2023": false,
+        "radd_2023": false,
+        "spot_visual": "unclear"
+      },
+      "delta_series": [
+        -3.52,
+        -3.52,
+        -3.52,
+        -3.52,
+        -3.52,
+        -3.52,
+        -3.52,
+        -3.52,
+        -3.52,
+        -3.52,
+        -3.52,
+        -3.52
+      ]
+    },
+    {
+      "id": "a_0004",
+      "centroid": [
+        0.5983,
+        0.9373
+      ],
+      "area_ha": 2.187,
+      "mean_delta_hv_db": -3.43,
+      "min_delta_hv_db": -4.64,
+      "baseline_hv_db": -11.75,
+      "candidate_plantation_frontier": true,
+      "cross_checks": {
+        "hansen_gfc_2023": false,
+        "radd_2023": false,
+        "spot_visual": "unclear"
+      },
+      "delta_series": [
+        -3.43,
+        -3.43,
+        -3.43,
+        -3.43,
+        -3.43,
+        -3.43,
+        -3.43,
+        -3.43,
+        -3.43,
+        -3.43,
+        -3.43,
+        -3.43
+      ]
+    },
+    {
+      "id": "a_0005",
+      "centroid": [
+        0.6506,
+        0.9104
+      ],
+      "area_ha": 0.562,
+      "mean_delta_hv_db": -3.69,
+      "min_delta_hv_db": -4.85,
+      "baseline_hv_db": -11.0,
+      "candidate_plantation_frontier": false,
+      "cross_checks": {
+        "hansen_gfc_2023": false,
+        "radd_2023": false,
+        "spot_visual": "unclear"
+      },
+      "delta_series": [
+        -3.69,
+        -3.69,
+        -3.69,
+        -3.69,
+        -3.69,
+        -3.69,
+        -3.69,
+        -3.69,
+        -3.69,
+        -3.69,
+        -3.69,
+        -3.69
+      ]
+    },
+    {
+      "id": "a_0006",
+      "centroid": [
+        0.7036,
+        0.8892
+      ],
+      "area_ha": 1.625,
+      "mean_delta_hv_db": -3.73,
+      "min_delta_hv_db": -5.49,
+      "baseline_hv_db": -11.07,
+      "candidate_plantation_frontier": true,
+      "cross_checks": {
+        "hansen_gfc_2023": true,
+        "radd_2023": false,
+        "spot_visual": "unclear"
+      },
+      "delta_series": [
+        -3.73,
+        -3.73,
+        -3.73,
+        -3.73,
+        -3.73,
+        -3.73,
+        -3.73,
+        -3.73,
+        -3.73,
+        -3.73,
+        -3.73,
+        -3.73
+      ]
+    },
+    {
+      "id": "a_0007",
+      "centroid": [
+        0.5137,
+        0.8855
+      ],
+      "area_ha": 11.311,
+      "mean_delta_hv_db": -4.16,
+      "min_delta_hv_db": -6.07,
+      "baseline_hv_db": -11.64,
+      "candidate_plantation_frontier": true,
+      "cross_checks": {
+        "hansen_gfc_2023": true,
+        "radd_2023": false,
+        "spot_visual": "unclear"
+      },
+      "delta_series": [
+        -4.16,
+        -4.16,
+        -4.16,
+        -4.16,
+        -4.16,
+        -4.16,
+        -4.16,
+        -4.16,
+        -4.16,
+        -4.16,
+        -4.16,
+        -4.16
+      ]
+    },
+    {
+      "id": "a_0008",
+      "centroid": [
+        0.678,
+        0.8751
+      ],
+      "area_ha": 1.562,
+      "mean_delta_hv_db": -3.36,
+      "min_delta_hv_db": -4.53,
+      "baseline_hv_db": -10.97,
+      "candidate_plantation_frontier": true,
+      "cross_checks": {
+        "hansen_gfc_2023": true,
+        "radd_2023": false,
+        "spot_visual": "unclear"
+      },
+      "delta_series": [
+        -3.36,
+        -3.36,
+        -3.36,
+        -3.36,
+        -3.36,
+        -3.36,
+        -3.36,
+        -3.36,
+        -3.36,
+        -3.36,
+        -3.36,
+        -3.36
+      ]
+    },
+    {
+      "id": "a_0009",
+      "centroid": [
+        0.9124,
+        0.8667
+      ],
+      "area_ha": 5.687,
+      "mean_delta_hv_db": -3.46,
+      "min_delta_hv_db": -6.77,
+      "baseline_hv_db": -10.93,
+      "candidate_plantation_frontier": true,
+      "cross_checks": {
+        "hansen_gfc_2023": true,
+        "radd_2023": false,
+        "spot_visual": "unclear"
+      },
+      "delta_series": [
+        -3.46,
+        -3.46,
+        -3.46,
+        -3.46,
+        -3.46,
+        -3.46,
+        -3.46,
+        -3.46,
+        -3.46,
+        -3.46,
+        -3.46,
+        -3.46
+      ]
+    },
+    {
+      "id": "a_0010",
+      "centroid": [
+        0.9739,
+        0.8522
+      ],
+      "area_ha": 0.562,
+      "mean_delta_hv_db": -3.52,
+      "min_delta_hv_db": -4.85,
+      "baseline_hv_db": -10.53,
+      "candidate_plantation_frontier": false,
+      "cross_checks": {
+        "hansen_gfc_2023": false,
+        "radd_2023": false,
+        "spot_visual": "unclear"
+      },
+      "delta_series": [
+        -3.52,
+        -3.52,
+        -3.52,
+        -3.52,
+        -3.52,
+        -3.52,
+        -3.52,
+        -3.52,
+        -3.52,
+        -3.52,
+        -3.52,
+        -3.52
+      ]
+    },
+    {
+      "id": "a_0011",
+      "centroid": [
+        0.6197,
+        0.8415
+      ],
+      "area_ha": 0.75,
+      "mean_delta_hv_db": -3.93,
+      "min_delta_hv_db": -4.98,
+      "baseline_hv_db": -11.91,
+      "candidate_plantation_frontier": false,
+      "cross_checks": {
+        "hansen_gfc_2023": true,
+        "radd_2023": false,
+        "spot_visual": "unclear"
+      },
+      "delta_series": [
+        -3.93,
+        -3.93,
+        -3.93,
+        -3.93,
+        -3.93,
+        -3.93,
+        -3.93,
+        -3.93,
+        -3.93,
+        -3.93,
+        -3.93,
+        -3.93
+      ]
+    },
+    {
+      "id": "a_0012",
+      "centroid": [
+        0.9243,
+        0.8413
+      ],
+      "area_ha": 6.312,
+      "mean_delta_hv_db": -4.08,
+      "min_delta_hv_db": -6.28,
+      "baseline_hv_db": -11.55,
+      "candidate_plantation_frontier": true,
+      "cross_checks": {
+        "hansen_gfc_2023": true,
+        "radd_2023": false,
+        "spot_visual": "unclear"
+      },
+      "delta_series": [
+        -4.08,
+        -4.08,
+        -4.08,
+        -4.08,
+        -4.08,
+        -4.08,
+        -4.08,
+        -4.08,
+        -4.08,
+        -4.08,
+        -4.08,
+        -4.08
+      ]
+    },
+    {
+      "id": "a_0013",
+      "centroid": [
+        0.9577,
+        0.831
+      ],
+      "area_ha": 16.748,
+      "mean_delta_hv_db": -3.79,
+      "min_delta_hv_db": -6.62,
+      "baseline_hv_db": -11.09,
+      "candidate_plantation_frontier": true,
+      "cross_checks": {
+        "hansen_gfc_2023": true,
+        "radd_2023": false,
+        "spot_visual": "unclear"
+      },
+      "delta_series": [
+        -3.79,
+        -3.79,
+        -3.79,
+        -3.79,
+        -3.79,
+        -3.79,
+        -3.79,
+        -3.79,
+        -3.79,
+        -3.79,
+        -3.79,
+        -3.79
+      ]
+    },
+    {
+      "id": "a_0014",
+      "centroid": [
+        0.9778,
+        0.8155
+      ],
+      "area_ha": 1.25,
+      "mean_delta_hv_db": -2.95,
+      "min_delta_hv_db": -4.18,
+      "baseline_hv_db": -11.4,
+      "candidate_plantation_frontier": false,
+      "cross_checks": {
+        "hansen_gfc_2023": false,
+        "radd_2023": false,
+        "spot_visual": "unclear"
+      },
+      "delta_series": [
+        -2.95,
+        -2.95,
+        -2.95,
+        -2.95,
+        -2.95,
+        -2.95,
+        -2.95,
+        -2.95,
+        -2.95,
+        -2.95,
+        -2.95,
+        -2.95
+      ]
+    },
+    {
+      "id": "a_0015",
+      "centroid": [
+        0.8655,
+        0.8073
+      ],
+      "area_ha": 3.499,
+      "mean_delta_hv_db": -3.56,
+      "min_delta_hv_db": -4.82,
+      "baseline_hv_db": -11.02,
+      "candidate_plantation_frontier": true,
+      "cross_checks": {
+        "hansen_gfc_2023": false,
+        "radd_2023": false,
+        "spot_visual": "unclear"
+      },
+      "delta_series": [
+        -3.56,
+        -3.56,
+        -3.56,
+        -3.56,
+        -3.56,
+        -3.56,
+        -3.56,
+        -3.56,
+        -3.56,
+        -3.56,
+        -3.56,
+        -3.56
+      ]
+    },
+    {
+      "id": "a_0016",
+      "centroid": [
+        0.8788,
+        0.7925
+      ],
+      "area_ha": 0.562,
+      "mean_delta_hv_db": -3.06,
+      "min_delta_hv_db": -3.7,
+      "baseline_hv_db": -11.21,
+      "candidate_plantation_frontier": false,
+      "cross_checks": {
+        "hansen_gfc_2023": true,
+        "radd_2023": false,
+        "spot_visual": "unclear"
+      },
+      "delta_series": [
+        -3.06,
+        -3.06,
+        -3.06,
+        -3.06,
+        -3.06,
+        -3.06,
+        -3.06,
+        -3.06,
+        -3.06,
+        -3.06,
+        -3.06,
+        -3.06
+      ]
+    },
+    {
+      "id": "a_0017",
+      "centroid": [
+        0.9029,
+        0.7956
+      ],
+      "area_ha": 7.874,
+      "mean_delta_hv_db": -4.16,
+      "min_delta_hv_db": -6.74,
+      "baseline_hv_db": -11.42,
+      "candidate_plantation_frontier": true,
+      "cross_checks": {
+        "hansen_gfc_2023": true,
+        "radd_2023": false,
+        "spot_visual": "unclear"
+      },
+      "delta_series": [
+        -4.16,
+        -4.16,
+        -4.16,
+        -4.16,
+        -4.16,
+        -4.16,
+        -4.16,
+        -4.16,
+        -4.16,
+        -4.16,
+        -4.16,
+        -4.16
+      ]
+    },
+    {
+      "id": "a_0018",
+      "centroid": [
+        0.5162,
+        0.7814
+      ],
+      "area_ha": 3.375,
+      "mean_delta_hv_db": -3.25,
+      "min_delta_hv_db": -4.67,
+      "baseline_hv_db": -10.91,
+      "candidate_plantation_frontier": true,
+      "cross_checks": {
+        "hansen_gfc_2023": true,
+        "radd_2023": false,
+        "spot_visual": "unclear"
+      },
+      "delta_series": [
+        -3.25,
+        -3.25,
+        -3.25,
+        -3.25,
+        -3.25,
+        -3.25,
+        -3.25,
+        -3.25,
+        -3.25,
+        -3.25,
+        -3.25,
+        -3.25
+      ]
+    },
+    {
+      "id": "a_0019",
+      "centroid": [
+        0.5254,
+        0.7603
+      ],
+      "area_ha": 0.562,
+      "mean_delta_hv_db": -3.24,
+      "min_delta_hv_db": -4.34,
+      "baseline_hv_db": -11.02,
+      "candidate_plantation_frontier": false,
+      "cross_checks": {
+        "hansen_gfc_2023": true,
+        "radd_2023": false,
+        "spot_visual": "unclear"
+      },
+      "delta_series": [
+        -3.24,
+        -3.24,
+        -3.24,
+        -3.24,
+        -3.24,
+        -3.24,
+        -3.24,
+        -3.24,
+        -3.24,
+        -3.24,
+        -3.24,
+        -3.24
+      ]
+    },
+    {
+      "id": "a_0020",
+      "centroid": [
+        0.545,
+        0.7653
+      ],
+      "area_ha": 5.999,
+      "mean_delta_hv_db": -3.8,
+      "min_delta_hv_db": -6.29,
+      "baseline_hv_db": -10.92,
+      "candidate_plantation_frontier": true,
+      "cross_checks": {
+        "hansen_gfc_2023": true,
+        "radd_2023": false,
+        "spot_visual": "unclear"
+      },
+      "delta_series": [
+        -3.8,
+        -3.8,
+        -3.8,
+        -3.8,
+        -3.8,
+        -3.8,
+        -3.8,
+        -3.8,
+        -3.8,
+        -3.8,
+        -3.8,
+        -3.8
+      ]
+    },
+    {
+      "id": "a_0021",
+      "centroid": [
+        0.9799,
+        0.7404
+      ],
+      "area_ha": 1.437,
+      "mean_delta_hv_db": -2.98,
+      "min_delta_hv_db": -3.57,
+      "baseline_hv_db": -11.17,
+      "candidate_plantation_frontier": false,
+      "cross_checks": {
+        "hansen_gfc_2023": false,
+        "radd_2023": false,
+        "spot_visual": "unclear"
+      },
+      "delta_series": [
+        -2.98,
+        -2.98,
+        -2.98,
+        -2.98,
+        -2.98,
+        -2.98,
+        -2.98,
+        -2.98,
+        -2.98,
+        -2.98,
+        -2.98,
+        -2.98
+      ]
+    },
+    {
+      "id": "a_0022",
+      "centroid": [
+        0.6693,
+        0.7538
+      ],
+      "area_ha": 18.247,
+      "mean_delta_hv_db": -3.9,
+      "min_delta_hv_db": -7.04,
+      "baseline_hv_db": -11.47,
+      "candidate_plantation_frontier": true,
+      "cross_checks": {
+        "hansen_gfc_2023": true,
+        "radd_2023": false,
+        "spot_visual": "unclear"
+      },
+      "delta_series": [
+        -3.9,
+        -3.9,
+        -3.9,
+        -3.9,
+        -3.9,
+        -3.9,
+        -3.9,
+        -3.9,
+        -3.9,
+        -3.9,
+        -3.9,
+        -3.9
+      ]
+    },
+    {
+      "id": "a_0023",
+      "centroid": [
+        0.4296,
+        0.7061
+      ],
+      "area_ha": 0.937,
+      "mean_delta_hv_db": -3.65,
+      "min_delta_hv_db": -4.89,
+      "baseline_hv_db": -8.72,
+      "candidate_plantation_frontier": false,
+      "cross_checks": {
+        "hansen_gfc_2023": false,
+        "radd_2023": false,
+        "spot_visual": "unclear"
+      },
+      "delta_series": [
+        -3.65,
+        -3.65,
+        -3.65,
+        -3.65,
+        -3.65,
+        -3.65,
+        -3.65,
+        -3.65,
+        -3.65,
+        -3.65,
+        -3.65,
+        -3.65
+      ]
+    },
+    {
+      "id": "a_0024",
+      "centroid": [
+        0.9268,
+        0.6689
+      ],
+      "area_ha": 2.75,
+      "mean_delta_hv_db": -3.53,
+      "min_delta_hv_db": -5.59,
+      "baseline_hv_db": -10.65,
+      "candidate_plantation_frontier": true,
+      "cross_checks": {
+        "hansen_gfc_2023": false,
+        "radd_2023": false,
+        "spot_visual": "unclear"
+      },
+      "delta_series": [
+        -3.53,
+        -3.53,
+        -3.53,
+        -3.53,
+        -3.53,
+        -3.53,
+        -3.53,
+        -3.53,
+        -3.53,
+        -3.53,
+        -3.53,
+        -3.53
+      ]
+    },
+    {
+      "id": "a_0025",
+      "centroid": [
+        0.9564,
+        0.6646
+      ],
+      "area_ha": 0.75,
+      "mean_delta_hv_db": -4.51,
+      "min_delta_hv_db": -7.0,
+      "baseline_hv_db": -8.72,
+      "candidate_plantation_frontier": false,
+      "cross_checks": {
+        "hansen_gfc_2023": false,
+        "radd_2023": false,
+        "spot_visual": "unclear"
+      },
+      "delta_series": [
+        -4.51,
+        -4.51,
+        -4.51,
+        -4.51,
+        -4.51,
+        -4.51,
+        -4.51,
+        -4.51,
+        -4.51,
+        -4.51,
+        -4.51,
+        -4.51
+      ]
+    },
+    {
+      "id": "a_0026",
+      "centroid": [
+        0.9612,
+        0.6508
+      ],
+      "area_ha": 0.75,
+      "mean_delta_hv_db": -3.79,
+      "min_delta_hv_db": -5.16,
+      "baseline_hv_db": -9.17,
+      "candidate_plantation_frontier": false,
+      "cross_checks": {
+        "hansen_gfc_2023": false,
+        "radd_2023": false,
+        "spot_visual": "unclear"
+      },
+      "delta_series": [
+        -3.79,
+        -3.79,
+        -3.79,
+        -3.79,
+        -3.79,
+        -3.79,
+        -3.79,
+        -3.79,
+        -3.79,
+        -3.79,
+        -3.79,
+        -3.79
+      ]
+    },
+    {
+      "id": "a_0027",
+      "centroid": [
+        0.981,
+        0.6386
+      ],
+      "area_ha": 1.125,
+      "mean_delta_hv_db": -3.36,
+      "min_delta_hv_db": -4.61,
+      "baseline_hv_db": -10.74,
+      "candidate_plantation_frontier": true,
+      "cross_checks": {
+        "hansen_gfc_2023": false,
+        "radd_2023": false,
+        "spot_visual": "unclear"
+      },
+      "delta_series": [
+        -3.36,
+        -3.36,
+        -3.36,
+        -3.36,
+        -3.36,
+        -3.36,
+        -3.36,
+        -3.36,
+        -3.36,
+        -3.36,
+        -3.36,
+        -3.36
+      ]
+    },
+    {
+      "id": "a_0028",
+      "centroid": [
+        0.9452,
+        0.6363
+      ],
+      "area_ha": 3.0,
+      "mean_delta_hv_db": -3.77,
+      "min_delta_hv_db": -6.29,
+      "baseline_hv_db": -11.8,
+      "candidate_plantation_frontier": true,
+      "cross_checks": {
+        "hansen_gfc_2023": false,
+        "radd_2023": false,
+        "spot_visual": "unclear"
+      },
+      "delta_series": [
+        -3.77,
+        -3.77,
+        -3.77,
+        -3.77,
+        -3.77,
+        -3.77,
+        -3.77,
+        -3.77,
+        -3.77,
+        -3.77,
+        -3.77,
+        -3.77
+      ]
+    },
+    {
+      "id": "a_0029",
+      "centroid": [
+        0.4968,
+        0.6172
+      ],
+      "area_ha": 0.75,
+      "mean_delta_hv_db": -4.06,
+      "min_delta_hv_db": -5.25,
+      "baseline_hv_db": -10.79,
+      "candidate_plantation_frontier": false,
+      "cross_checks": {
+        "hansen_gfc_2023": true,
+        "radd_2023": false,
+        "spot_visual": "unclear"
+      },
+      "delta_series": [
+        -4.06,
+        -4.06,
+        -4.06,
+        -4.06,
+        -4.06,
+        -4.06,
+        -4.06,
+        -4.06,
+        -4.06,
+        -4.06,
+        -4.06,
+        -4.06
+      ]
+    },
+    {
+      "id": "a_0030",
+      "centroid": [
+        0.9952,
+        0.6018
+      ],
+      "area_ha": 1.375,
+      "mean_delta_hv_db": -3.31,
+      "min_delta_hv_db": -4.28,
+      "baseline_hv_db": -12.08,
+      "candidate_plantation_frontier": true,
+      "cross_checks": {
+        "hansen_gfc_2023": true,
+        "radd_2023": false,
+        "spot_visual": "unclear"
+      },
+      "delta_series": [
+        -3.31,
+        -3.31,
+        -3.31,
+        -3.31,
+        -3.31,
+        -3.31,
+        -3.31,
+        -3.31,
+        -3.31,
+        -3.31,
+        -3.31,
+        -3.31
+      ]
+    },
+    {
+      "id": "a_0031",
+      "centroid": [
+        0.5158,
+        0.5949
+      ],
+      "area_ha": 0.562,
+      "mean_delta_hv_db": -3.17,
+      "min_delta_hv_db": -4.45,
+      "baseline_hv_db": -10.7,
+      "candidate_plantation_frontier": false,
+      "cross_checks": {
+        "hansen_gfc_2023": false,
+        "radd_2023": false,
+        "spot_visual": "unclear"
+      },
+      "delta_series": [
+        -3.17,
+        -3.17,
+        -3.17,
+        -3.17,
+        -3.17,
+        -3.17,
+        -3.17,
+        -3.17,
+        -3.17,
+        -3.17,
+        -3.17,
+        -3.17
+      ]
+    },
+    {
+      "id": "a_0032",
+      "centroid": [
+        0.9011,
+        0.5977
+      ],
+      "area_ha": 7.749,
+      "mean_delta_hv_db": -3.99,
+      "min_delta_hv_db": -6.15,
+      "baseline_hv_db": -10.79,
+      "candidate_plantation_frontier": true,
+      "cross_checks": {
+        "hansen_gfc_2023": true,
+        "radd_2023": false,
+        "spot_visual": "unclear"
+      },
+      "delta_series": [
+        -3.99,
+        -3.99,
+        -3.99,
+        -3.99,
+        -3.99,
+        -3.99,
+        -3.99,
+        -3.99,
+        -3.99,
+        -3.99,
+        -3.99,
+        -3.99
+      ]
+    },
+    {
+      "id": "a_0033",
+      "centroid": [
+        0.4049,
+        0.5873
+      ],
+      "area_ha": 0.562,
+      "mean_delta_hv_db": -3.28,
+      "min_delta_hv_db": -3.71,
+      "baseline_hv_db": -10.62,
+      "candidate_plantation_frontier": false,
+      "cross_checks": {
+        "hansen_gfc_2023": false,
+        "radd_2023": false,
+        "spot_visual": "unclear"
+      },
+      "delta_series": [
+        -3.28,
+        -3.28,
+        -3.28,
+        -3.28,
+        -3.28,
+        -3.28,
+        -3.28,
+        -3.28,
+        -3.28,
+        -3.28,
+        -3.28,
+        -3.28
+      ]
+    },
+    {
+      "id": "a_0034",
+      "centroid": [
+        0.9855,
+        0.5756
+      ],
+      "area_ha": 5.312,
+      "mean_delta_hv_db": -4.07,
+      "min_delta_hv_db": -5.72,
+      "baseline_hv_db": -11.32,
+      "candidate_plantation_frontier": true,
+      "cross_checks": {
+        "hansen_gfc_2023": true,
+        "radd_2023": false,
+        "spot_visual": "unclear"
+      },
+      "delta_series": [
+        -4.07,
+        -4.07,
+        -4.07,
+        -4.07,
+        -4.07,
+        -4.07,
+        -4.07,
+        -4.07,
+        -4.07,
+        -4.07,
+        -4.07,
+        -4.07
+      ]
+    },
+    {
+      "id": "a_0035",
+      "centroid": [
+        0.5808,
+        0.572
+      ],
+      "area_ha": 0.562,
+      "mean_delta_hv_db": -3.14,
+      "min_delta_hv_db": -4.7,
+      "baseline_hv_db": -9.68,
+      "candidate_plantation_frontier": false,
+      "cross_checks": {
+        "hansen_gfc_2023": false,
+        "radd_2023": false,
+        "spot_visual": "unclear"
+      },
+      "delta_series": [
+        -3.14,
+        -3.14,
+        -3.14,
+        -3.14,
+        -3.14,
+        -3.14,
+        -3.14,
+        -3.14,
+        -3.14,
+        -3.14,
+        -3.14,
+        -3.14
+      ]
+    },
+    {
+      "id": "a_0036",
+      "centroid": [
+        0.0848,
+        0.5368
+      ],
+      "area_ha": 0.562,
+      "mean_delta_hv_db": -3.52,
+      "min_delta_hv_db": -4.34,
+      "baseline_hv_db": -9.81,
+      "candidate_plantation_frontier": false,
+      "cross_checks": {
+        "hansen_gfc_2023": false,
+        "radd_2023": false,
+        "spot_visual": "unclear"
+      },
+      "delta_series": [
+        -3.52,
+        -3.52,
+        -3.52,
+        -3.52,
+        -3.52,
+        -3.52,
+        -3.52,
+        -3.52,
+        -3.52,
+        -3.52,
+        -3.52,
+        -3.52
+      ]
+    },
+    {
+      "id": "a_0037",
+      "centroid": [
+        0.9726,
+        0.5198
+      ],
+      "area_ha": 2.375,
+      "mean_delta_hv_db": -3.43,
+      "min_delta_hv_db": -4.23,
+      "baseline_hv_db": -12.09,
+      "candidate_plantation_frontier": true,
+      "cross_checks": {
+        "hansen_gfc_2023": true,
+        "radd_2023": false,
+        "spot_visual": "unclear"
+      },
+      "delta_series": [
+        -3.43,
+        -3.43,
+        -3.43,
+        -3.43,
+        -3.43,
+        -3.43,
+        -3.43,
+        -3.43,
+        -3.43,
+        -3.43,
+        -3.43,
+        -3.43
+      ]
+    },
+    {
+      "id": "a_0038",
+      "centroid": [
+        0.538,
+        0.5153
+      ],
+      "area_ha": 0.562,
+      "mean_delta_hv_db": -3.23,
+      "min_delta_hv_db": -4.2,
+      "baseline_hv_db": -9.77,
+      "candidate_plantation_frontier": false,
+      "cross_checks": {
+        "hansen_gfc_2023": false,
+        "radd_2023": false,
+        "spot_visual": "unclear"
+      },
+      "delta_series": [
+        -3.23,
+        -3.23,
+        -3.23,
+        -3.23,
+        -3.23,
+        -3.23,
+        -3.23,
+        -3.23,
+        -3.23,
+        -3.23,
+        -3.23,
+        -3.23
+      ]
+    },
+    {
+      "id": "a_0039",
+      "centroid": [
+        0.7044,
+        0.5123
+      ],
+      "area_ha": 0.562,
+      "mean_delta_hv_db": -3.29,
+      "min_delta_hv_db": -4.43,
+      "baseline_hv_db": -9.31,
+      "candidate_plantation_frontier": false,
+      "cross_checks": {
+        "hansen_gfc_2023": false,
+        "radd_2023": false,
+        "spot_visual": "unclear"
+      },
+      "delta_series": [
+        -3.29,
+        -3.29,
+        -3.29,
+        -3.29,
+        -3.29,
+        -3.29,
+        -3.29,
+        -3.29,
+        -3.29,
+        -3.29,
+        -3.29,
+        -3.29
+      ]
+    },
+    {
+      "id": "a_0040",
+      "centroid": [
+        0.7282,
+        0.5107
+      ],
+      "area_ha": 0.562,
+      "mean_delta_hv_db": -3.67,
+      "min_delta_hv_db": -4.2,
+      "baseline_hv_db": -10.0,
+      "candidate_plantation_frontier": false,
+      "cross_checks": {
+        "hansen_gfc_2023": false,
+        "radd_2023": false,
+        "spot_visual": "unclear"
+      },
+      "delta_series": [
+        -3.67,
+        -3.67,
+        -3.67,
+        -3.67,
+        -3.67,
+        -3.67,
+        -3.67,
+        -3.67,
+        -3.67,
+        -3.67,
+        -3.67,
+        -3.67
+      ]
+    },
+    {
+      "id": "a_0041",
+      "centroid": [
+        0.9246,
+        0.4685
+      ],
+      "area_ha": 1.937,
+      "mean_delta_hv_db": -3.2,
+      "min_delta_hv_db": -4.46,
+      "baseline_hv_db": -10.44,
+      "candidate_plantation_frontier": true,
+      "cross_checks": {
+        "hansen_gfc_2023": false,
+        "radd_2023": false,
+        "spot_visual": "unclear"
+      },
+      "delta_series": [
+        -3.2,
+        -3.2,
+        -3.2,
+        -3.2,
+        -3.2,
+        -3.2,
+        -3.2,
+        -3.2,
+        -3.2,
+        -3.2,
+        -3.2,
+        -3.2
+      ]
+    },
+    {
+      "id": "a_0042",
+      "centroid": [
+        0.7108,
+        0.4456
+      ],
+      "area_ha": 1.25,
+      "mean_delta_hv_db": -3.86,
+      "min_delta_hv_db": -5.16,
+      "baseline_hv_db": -11.44,
+      "candidate_plantation_frontier": true,
+      "cross_checks": {
+        "hansen_gfc_2023": true,
+        "radd_2023": false,
+        "spot_visual": "unclear"
+      },
+      "delta_series": [
+        -3.86,
+        -3.86,
+        -3.86,
+        -3.86,
+        -3.86,
+        -3.86,
+        -3.86,
+        -3.86,
+        -3.86,
+        -3.86,
+        -3.86,
+        -3.86
+      ]
+    },
+    {
+      "id": "a_0043",
+      "centroid": [
+        0.8708,
+        0.425
+      ],
+      "area_ha": 0.562,
+      "mean_delta_hv_db": -3.65,
+      "min_delta_hv_db": -4.85,
+      "baseline_hv_db": -8.94,
+      "candidate_plantation_frontier": false,
+      "cross_checks": {
+        "hansen_gfc_2023": false,
+        "radd_2023": false,
+        "spot_visual": "unclear"
+      },
+      "delta_series": [
+        -3.65,
+        -3.65,
+        -3.65,
+        -3.65,
+        -3.65,
+        -3.65,
+        -3.65,
+        -3.65,
+        -3.65,
+        -3.65,
+        -3.65,
+        -3.65
+      ]
+    },
+    {
+      "id": "a_0044",
+      "centroid": [
+        0.2813,
+        0.4112
+      ],
+      "area_ha": 0.562,
+      "mean_delta_hv_db": -2.93,
+      "min_delta_hv_db": -3.73,
+      "baseline_hv_db": -10.89,
+      "candidate_plantation_frontier": false,
+      "cross_checks": {
+        "hansen_gfc_2023": false,
+        "radd_2023": false,
+        "spot_visual": "unclear"
+      },
+      "delta_series": [
+        -2.93,
+        -2.93,
+        -2.93,
+        -2.93,
+        -2.93,
+        -2.93,
+        -2.93,
+        -2.93,
+        -2.93,
+        -2.93,
+        -2.93,
+        -2.93
+      ]
+    },
+    {
+      "id": "a_0045",
+      "centroid": [
+        0.2369,
+        0.4081
+      ],
+      "area_ha": 0.562,
+      "mean_delta_hv_db": -3.37,
+      "min_delta_hv_db": -4.09,
+      "baseline_hv_db": -7.87,
+      "candidate_plantation_frontier": false,
+      "cross_checks": {
+        "hansen_gfc_2023": false,
+        "radd_2023": false,
+        "spot_visual": "unclear"
+      },
+      "delta_series": [
+        -3.37,
+        -3.37,
+        -3.37,
+        -3.37,
+        -3.37,
+        -3.37,
+        -3.37,
+        -3.37,
+        -3.37,
+        -3.37,
+        -3.37,
+        -3.37
+      ]
+    },
+    {
+      "id": "a_0046",
+      "centroid": [
+        0.9423,
+        0.3937
+      ],
+      "area_ha": 1.187,
+      "mean_delta_hv_db": -3.77,
+      "min_delta_hv_db": -5.68,
+      "baseline_hv_db": -8.69,
+      "candidate_plantation_frontier": true,
+      "cross_checks": {
+        "hansen_gfc_2023": false,
+        "radd_2023": false,
+        "spot_visual": "unclear"
+      },
+      "delta_series": [
+        -3.77,
+        -3.77,
+        -3.77,
+        -3.77,
+        -3.77,
+        -3.77,
+        -3.77,
+        -3.77,
+        -3.77,
+        -3.77,
+        -3.77,
+        -3.77
+      ]
+    },
+    {
+      "id": "a_0047",
+      "centroid": [
+        0.4319,
+        0.3407
+      ],
+      "area_ha": 0.562,
+      "mean_delta_hv_db": -4.36,
+      "min_delta_hv_db": -5.8,
+      "baseline_hv_db": -7.96,
+      "candidate_plantation_frontier": false,
+      "cross_checks": {
+        "hansen_gfc_2023": false,
+        "radd_2023": false,
+        "spot_visual": "unclear"
+      },
+      "delta_series": [
+        -4.36,
+        -4.36,
+        -4.36,
+        -4.36,
+        -4.36,
+        -4.36,
+        -4.36,
+        -4.36,
+        -4.36,
+        -4.36,
+        -4.36,
+        -4.36
+      ]
+    },
+    {
+      "id": "a_0048",
+      "centroid": [
+        0.9295,
+        0.2956
+      ],
+      "area_ha": 0.75,
+      "mean_delta_hv_db": -3.75,
+      "min_delta_hv_db": -4.59,
+      "baseline_hv_db": -10.01,
+      "candidate_plantation_frontier": false,
+      "cross_checks": {
+        "hansen_gfc_2023": true,
+        "radd_2023": false,
+        "spot_visual": "unclear"
+      },
+      "delta_series": [
+        -3.75,
+        -3.75,
+        -3.75,
+        -3.75,
+        -3.75,
+        -3.75,
+        -3.75,
+        -3.75,
+        -3.75,
+        -3.75,
+        -3.75,
+        -3.75
+      ]
+    },
+    {
+      "id": "a_0049",
+      "centroid": [
+        0.4778,
+        0.206
+      ],
+      "area_ha": 0.562,
+      "mean_delta_hv_db": -3.98,
+      "min_delta_hv_db": -5.18,
+      "baseline_hv_db": -7.83,
+      "candidate_plantation_frontier": false,
+      "cross_checks": {
+        "hansen_gfc_2023": false,
+        "radd_2023": false,
+        "spot_visual": "unclear"
+      },
+      "delta_series": [
+        -3.98,
+        -3.98,
+        -3.98,
+        -3.98,
+        -3.98,
+        -3.98,
+        -3.98,
+        -3.98,
+        -3.98,
+        -3.98,
+        -3.98,
+        -3.98
+      ]
+    },
+    {
+      "id": "a_0050",
+      "centroid": [
+        0.0927,
+        0.1585
+      ],
+      "area_ha": 0.562,
+      "mean_delta_hv_db": -4.31,
+      "min_delta_hv_db": -6.54,
+      "baseline_hv_db": -9.12,
+      "candidate_plantation_frontier": false,
+      "cross_checks": {
+        "hansen_gfc_2023": true,
+        "radd_2023": false,
+        "spot_visual": "unclear"
+      },
+      "delta_series": [
+        -4.31,
+        -4.31,
+        -4.31,
+        -4.31,
+        -4.31,
+        -4.31,
+        -4.31,
+        -4.31,
+        -4.31,
+        -4.31,
+        -4.31,
+        -4.31
+      ]
+    },
+    {
+      "id": "a_0051",
+      "centroid": [
+        0.1086,
+        0.147
+      ],
+      "area_ha": 0.75,
+      "mean_delta_hv_db": -3.4,
+      "min_delta_hv_db": -4.26,
+      "baseline_hv_db": -8.87,
+      "candidate_plantation_frontier": false,
+      "cross_checks": {
+        "hansen_gfc_2023": false,
+        "radd_2023": false,
+        "spot_visual": "unclear"
+      },
+      "delta_series": [
+        -3.4,
+        -3.4,
+        -3.4,
+        -3.4,
+        -3.4,
+        -3.4,
+        -3.4,
+        -3.4,
+        -3.4,
+        -3.4,
+        -3.4,
+        -3.4
+      ]
+    },
+    {
+      "id": "a_0052",
+      "centroid": [
+        0.4943,
+        0.1025
+      ],
+      "area_ha": 0.937,
+      "mean_delta_hv_db": -3.53,
+      "min_delta_hv_db": -4.78,
+      "baseline_hv_db": -8.42,
+      "candidate_plantation_frontier": false,
+      "cross_checks": {
+        "hansen_gfc_2023": false,
+        "radd_2023": false,
+        "spot_visual": "unclear"
+      },
+      "delta_series": [
+        -3.53,
+        -3.53,
+        -3.53,
+        -3.53,
+        -3.53,
+        -3.53,
+        -3.53,
+        -3.53,
+        -3.53,
+        -3.53,
+        -3.53,
+        -3.53
+      ]
+    },
+    {
+      "id": "a_0053",
+      "centroid": [
+        0.8233,
+        0.0773
+      ],
+      "area_ha": 0.562,
+      "mean_delta_hv_db": -3.25,
+      "min_delta_hv_db": -4.44,
+      "baseline_hv_db": -10.9,
+      "candidate_plantation_frontier": false,
+      "cross_checks": {
+        "hansen_gfc_2023": true,
+        "radd_2023": false,
+        "spot_visual": "unclear"
+      },
+      "delta_series": [
+        -3.25,
+        -3.25,
+        -3.25,
+        -3.25,
+        -3.25,
+        -3.25,
+        -3.25,
+        -3.25,
+        -3.25,
+        -3.25,
+        -3.25,
+        -3.25
+      ]
+    },
+    {
+      "id": "a_0054",
+      "centroid": [
+        0.0372,
+        0.0375
+      ],
+      "area_ha": 0.562,
+      "mean_delta_hv_db": -3.52,
+      "min_delta_hv_db": -4.16,
+      "baseline_hv_db": -7.85,
+      "candidate_plantation_frontier": false,
+      "cross_checks": {
+        "hansen_gfc_2023": false,
+        "radd_2023": false,
+        "spot_visual": "unclear"
+      },
+      "delta_series": [
+        -3.52,
+        -3.52,
+        -3.52,
+        -3.52,
+        -3.52,
+        -3.52,
+        -3.52,
+        -3.52,
+        -3.52,
+        -3.52,
+        -3.52,
+        -3.52
+      ]
+    }
+  ]
+}
