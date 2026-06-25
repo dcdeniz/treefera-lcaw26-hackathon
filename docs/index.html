@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Through the Clouds — SAR deforestation detection · Treefera LCAW26 archive</title>
+<meta name="description" content="Detecting deforestation through tropical cloud with L-band PALSAR radar. Treefera LCAW26 Hackathon, Theme G. Classical no-ML change detection, honestly validated.">
+<style>
+  :root{--bg:#070809;--panel:#0d1219;--ink:#e8eaed;--muted:#838a93;--line:#1b212a;--red:#e23b3b;--accent:#6cd7ff;}
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.62;}
+  .mono{font-family:ui-monospace,"SF Mono",Menlo,monospace;}
+  a{color:var(--accent);text-decoration:none;} a:hover{text-decoration:underline;}
+  .wrap{max-width:920px;margin:0 auto;padding:0 22px;}
+  header{border-bottom:1px solid var(--line);padding:56px 0 40px;
+    background:radial-gradient(900px 420px at 50% -140px, rgba(108,215,255,.08), transparent);}
+  .kicker{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);}
+  h1{font-size:42px;line-height:1.08;margin:14px 0 10px;letter-spacing:-.01em;}
+  .lede{font-size:17px;color:#c4ccd4;max-width:650px;}
+  .badges{margin-top:20px;display:flex;flex-wrap:wrap;gap:8px;}
+  .badge{font-size:11px;letter-spacing:.05em;border:1px solid var(--line);border-radius:999px;padding:5px 12px;color:var(--muted);}
+  .cta{margin-top:26px;display:flex;flex-wrap:wrap;gap:12px;}
+  .btn{display:inline-block;padding:11px 18px;border-radius:8px;font-size:14px;font-weight:600;border:1px solid var(--line);}
+  .btn.primary{background:var(--accent);color:#04222e;border-color:var(--accent);}
+  .btn.ghost{color:var(--ink);}
+  .note{margin-top:16px;font-size:12.5px;color:var(--muted);}
+  section{padding:44px 0;border-bottom:1px solid var(--line);}
+  h2{font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin:0 0 18px;}
+  p{margin:0 0 14px;color:#cdd3da;}
+  em{color:#e8eaed;font-style:italic;}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:18px 0;}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 18px;}
+  .card .n{font-size:26px;font-weight:700;line-height:1;} .card .n.red{color:var(--red);} .card .n.ac{color:var(--accent);}
+  .card .l{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-top:6px;}
+  figure{margin:24px 0;}
+  figure img{width:100%;border:1px solid var(--line);border-radius:10px;display:block;}
+  figcaption{font-size:12.5px;color:var(--muted);margin-top:9px;}
+  ul{color:#cdd3da;padding-left:20px;margin:0 0 14px;} li{margin:8px 0;}
+  .adr{border:1px solid var(--line);border-radius:9px;margin:10px 0;padding:13px 16px;background:var(--panel);}
+  .adr .id{font-size:11px;letter-spacing:.08em;color:var(--accent);}
+  .adr .t{font-weight:600;margin:3px 0 5px;}
+  .adr .d{font-size:13.5px;color:var(--muted);margin:0;}
+  .pipe{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:16px 0;}
+  .pipe .step{background:var(--panel);border:1px solid var(--line);border-radius:7px;padding:7px 11px;font-size:12.5px;}
+  .pipe .arr{color:var(--muted);}
+  .callout{background:linear-gradient(180deg,rgba(108,215,255,.06),transparent);border:1px solid var(--line);
+    border-left:3px solid var(--accent);border-radius:8px;padding:15px 18px;margin:16px 0;color:#cdd3da;}
+  footer{padding:34px 0 64px;color:var(--muted);font-size:12.5px;}
+  code{background:#11161d;border:1px solid var(--line);border-radius:4px;padding:1px 6px;font-size:12.5px;}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <div class="kicker">Treefera · London Climate Action Week 2026 · Hackathon</div>
+  <h1>Through the Clouds</h1>
+  <p class="lede">Detecting tropical deforestation that optical satellites can't reliably see — using
+    L-band radar that shoots straight through cloud. Theme&nbsp;G: <em>“See Through the Clouds (SAR).”</em></p>
+  <div class="badges">
+    <span class="badge">L-band ALOS-2 PALSAR</span>
+    <span class="badge">Classical · no ML</span>
+    <span class="badge">Central Kalimantan, Borneo</span>
+    <span class="badge">2018–2024 time-series</span>
+    <span class="badge">Honestly validated</span>
+  </div>
+  <div class="cta">
+    <a class="btn primary" href="https://treefera-lcaw26-hackathon.vercel.app">Open the live webapp →</a>
+    <a class="btn ghost" href="https://github.com/dcdeniz/treefera-lcaw26-hackathon">View the codebase</a>
+  </div>
+  <p class="note">⏳ The live webapp is a temporary deployment and goes offline ~72 hours after the
+    hackathon. <strong>This page is the permanent archive.</strong></p>
+</div></header>
+
+<section><div class="wrap">
+  <h2>The challenge</h2>
+  <p>Borneo's peat-swamp forests sit under near-permanent cloud. Optical satellites (Landsat, Sentinel-2) —
+    the backbone of deforestation monitoring like Hansen Global Forest Change — go blind for weeks at a time,
+    so clearing is often caught months late or missed in the annual composite. <strong>Theme&nbsp;G</strong>
+    asks: can <strong>Synthetic Aperture Radar</strong>, which is unaffected by cloud and works day or night,
+    <em>match or beat optical</em> for finding forest loss?</p>
+  <p>Our answer: radar doesn't replace optical's spatial precision — but it wins decisively on
+    <strong>timeliness</strong>. It images the loss on the pass it happens, through the cloud that hides it.</p>
+</div></section>
+
+<section><div class="wrap">
+  <h2>What we built</h2>
+  <p><strong>“Through the Clouds”</strong> is a classical, no-ML deforestation detector over a Central
+    Kalimantan hotspot (<span class="mono">113.43–113.57°E, 0.93–1.07°S</span>), wrapped in an interactive
+    “peel the clouds” web viewer with a multi-year time-scrubber.</p>
+  <div class="grid">
+    <div class="card"><div class="n red">191</div><div class="l">alerts detected · 2018–2024</div></div>
+    <div class="card"><div class="n">7</div><div class="l">annual frames (year-pairs)</div></div>
+    <div class="card"><div class="n ac">0.44</div><div class="l">object precision vs Hansen · 2023</div></div>
+    <div class="card"><div class="n">~29%</div><div class="l">AOI cloud-blind per optical pass</div></div>
+  </div>
+  <figure>
+    <img src="assets/screenshot-live.png" alt="The live geographic viewer: 3D deforestation alert prisms over PALSAR HV terrain, with the cloud-peel reveal slider and the 2018–2024 time scrubber.">
+    <figcaption>The live viewer — drag the gradient to peel cloud → optical → SAR; drag the year scrubber
+      (top) to watch clearing accumulate 2018→2024. Alert prism height &amp; colour = backscatter drop
+      (|Δ&nbsp;HV|).</figcaption>
+  </figure>
+  <figure>
+    <img src="assets/screenshot-demo.png" alt="The isometric demo scene: stacked cloud / optical / SAR decks with extruded red alert prisms.">
+    <figcaption>The isometric “demo” scene — the same detections rendered as a 2.5D stack (ADR-0009).</figcaption>
+  </figure>
+</div></section>
+
+<section><div class="wrap">
+  <h2>How it works — the detection</h2>
+  <p>Two co-registered annual PALSAR HV mosaics (year <em>n−1</em> vs <em>n</em>), differenced in the radar
+    domain. Forest has bright HV backscatter (volume scattering from the canopy); clearing collapses it. The
+    pipeline is deliberately classical and inspectable — every threshold is a documented, tunable number,
+    not a black box.</p>
+  <div class="pipe">
+    <span class="step">PALSAR HV (γ⁰ dB)</span><span class="arr">→</span>
+    <span class="step">Lee despeckle</span><span class="arr">→</span>
+    <span class="step">Δ = HVₙ − HVₙ₋₁</span><span class="arr">→</span>
+    <span class="step">loss where Δ ≤ −2.5 dB</span><span class="arr">→</span>
+    <span class="step">water / non-forest mask</span><span class="arr">→</span>
+    <span class="step">morphology + 0.2 ha MMU</span><span class="arr">→</span>
+    <span class="step">polygonize</span><span class="arr">→</span>
+    <span class="step">cross-check vs Hansen</span>
+  </div>
+  <p>Run over all seven consecutive year-pairs (2017-18 … 2023-24), it produces a real
+    <strong>2018–2024 time-series</strong>. The per-year spread tracks Hansen's annual loss progression
+    (object precision 0.44–1.00 across frames) — a stronger validation than any single-year pixel score.</p>
+</div></section>
+
+<section><div class="wrap">
+  <h2>Honest results</h2>
+  <p>We validate against Hansen GFC loss as a <em>cross-reference, not ground truth</em> — Hansen is itself
+    optical and cloud-limited, so a SAR-yes / Hansen-no pixel is not automatically a false positive under
+    persistent cloud.</p>
+  <div class="grid">
+    <div class="card"><div class="n">0.34</div><div class="l">pixel F1 vs Hansen · 2023</div></div>
+    <div class="card"><div class="n">0.40</div><div class="l">users' accuracy (precision)</div></div>
+    <div class="card"><div class="n">0.30</div><div class="l">producers' accuracy (recall)</div></div>
+    <div class="card"><div class="n ac">24 / 54</div><div class="l">alerts Hansen-confirmed</div></div>
+  </div>
+  <div class="callout"><strong>We ship caveated, never inflated.</strong> A modest pixel-F1 against a
+    cloud-limited optical reference is the <em>honest</em> outcome, not a failure — and it is precisely the
+    point of the challenge. We explicitly walked back every overclaim: e.g. “optical is permanently blind”
+    became the defensible claim of <em>per-pass timeliness</em> (~29% cloud-blind on a single overpass),
+    not annual invisibility.</div>
+</div></section>
+
+<section><div class="wrap">
+  <h2>How we built it — methodology</h2>
+  <ul>
+    <li><strong>Contract- &amp; ADR-driven.</strong> A written build contract fixed data shapes and
+      thresholds up front; nine Architecture Decision Records (below) capture every non-obvious call.</li>
+    <li><strong>Multi-agent orchestration.</strong> The detection pipeline, the data/API layer, and a
+      headless-QGIS geoprocessing stack were built by separate AI agents coordinating through a file-based
+      <code>conversations/</code> channel — proposing, reviewing, and reconciling changes in the open.</li>
+    <li><strong>Honesty as a feature</strong> (ADR-0007). Every metric ships with its caveat; fabricated UI
+      — a fake “monthly” chart synthesised from annual data — was cut on sight.</li>
+    <li><strong>Stack.</strong> Python (<span class="mono">rasterio · rioxarray · geopandas · scipy ·
+      shapely</span>) for the pipeline; Next.js + MapLibre GL for the viewer; MongoDB Atlas as the run
+      registry; a custom QGIS-MCP server for geoprocessing.</li>
+  </ul>
+</div></section>
+
+<section><div class="wrap">
+  <h2>Architecture Decision Records</h2>
+  <p>The nine decisions that shaped the solution —
+    <a href="https://github.com/dcdeniz/treefera-lcaw26-hackathon/tree/main/docs/adr">full text on GitHub</a>.</p>
+
+  <div class="adr"><div class="id">ADR-0001</div><div class="t">Classical two-date L-band HV change detection (no ML)</div>
+    <p class="d">Differencing two annual radar mosaics beats ML here — no training labels, fully inspectable,
+      and the signal lives in the temporal change, not a learned class.</p></div>
+  <div class="adr"><div class="id">ADR-0002</div><div class="t">Single linear agent; reject the 6-agent split</div>
+    <p class="d">Keep the detection build as one coherent linear pipeline rather than fragmenting it across
+      six micro-agents that would thrash on shared state.</p></div>
+  <div class="adr"><div class="id">ADR-0003</div><div class="t">Blocking DN-vs-dB pre-flight before calibration</div>
+    <p class="d">A mandatory check caught that PALSAR was <em>already</em> in γ⁰ dB — applying the textbook
+      calibration formula would have double-calibrated it into garbage.</p></div>
+  <div class="adr"><div class="id">ADR-0004</div><div class="t">Derive the minimum mapping unit from real resolution</div>
+    <p class="d">Computed the 0.2 ha MMU as ~3 pixels from the actual ~25 m resolution, correcting a wrong
+      “32 pixel” figure in the contract.</p></div>
+  <div class="adr"><div class="id">ADR-0005</div><div class="t">Hansen is a cross-reference, not ground truth</div>
+    <p class="d">Hansen is itself optical and cloud-limited, so we report <em>agreement</em>, not accuracy,
+      and never treat SAR-only detections as automatic false positives.</p></div>
+  <div class="adr"><div class="id">ADR-0006</div><div class="t">Reuse the existing Python 3.13 venv</div>
+    <p class="d">Pragmatic environment call — move fast on the working toolchain rather than rebuilding a
+      pinned 3.11 for marginal reproducibility gains.</p></div>
+  <div class="adr"><div class="id">ADR-0007</div><div class="t">Ship a caveated demo over blocking on validation gates</div>
+    <p class="d">Honesty over inflation: ship real numbers with their caveats rather than gate-game the
+      metrics or hide the limitations of a cloud-limited reference.</p></div>
+  <div class="adr"><div class="id">ADR-0008</div><div class="t">Static bundle on Vercel CDN + QR; Mongo/SaaS optional</div>
+    <p class="d">The demo runs as a static bundle so it works at the booth with no backend; the database is
+      an optional enhancement, never a hard dependency.</p></div>
+  <div class="adr"><div class="id">ADR-0009</div><div class="t">Isometric / 2.5D pitch visualization</div>
+    <p class="d">A 2.5D isometric reveal makes the cloud → SAR → detection story legible in a five-minute
+      pitch, with alert height encoding backscatter loss.</p></div>
+</div></section>
+
+<footer><div class="wrap">
+  <p><strong>Through the Clouds</strong> · Treefera LCAW26 Hackathon, Theme G (SAR) · Central Kalimantan, Borneo.</p>
+  <p>Live webapp (temporary): <a href="https://treefera-lcaw26-hackathon.vercel.app">treefera-lcaw26-hackathon.vercel.app</a>
+     · Code: <a href="https://github.com/dcdeniz/treefera-lcaw26-hackathon">github.com/dcdeniz/treefera-lcaw26-hackathon</a></p>
+  <p class="mono" style="color:#4a525c">Data: ALOS-2 PALSAR-2 © JAXA · Hansen Global Forest Change · Sentinel-2 © ESA · OpenStreetMap contributors.</p>
+</div></footer>
+</body>
+</html>
