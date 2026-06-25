@@ -4,12 +4,13 @@ import { PeelControls } from '@/components/scene/PeelControls'
 import { BottomStats } from '@/components/scene/BottomStats'
 import { AlertDrawer } from '@/components/scene/AlertDrawer'
 import { MethodologyStrip } from '@/components/scene/MethodologyStrip'
+import { DecisionsButton } from '@/components/scene/DecisionsButton'
 import { Separator } from '@/components/ui/separator'
 import { Badge } from '@/components/ui/badge'
 import { aoi, alerts, summary, type Alert } from '@/data/mock'
 
 export default function App() {
-  const [peel, setPeel] = useState(0) // 0 = clouds fully on, 1 = clouds gone, optical gone too
+  const [peel, setPeel] = useState(0)
   const [layers, setLayers] = useState({ clouds: true, optical: true, sar: true, alerts: true })
   const [year, setYear] = useState<'2022' | '2023'>('2023')
   const [selected, setSelected] = useState<Alert | null>(null)
@@ -19,6 +20,8 @@ export default function App() {
   const cloudOpacity = layers.clouds ? Math.max(0, 1 - peel * 2) : 0
   const opticalOpacity = layers.optical ? Math.max(0, 1 - Math.max(0, peel - 0.5) * 2) : 0
   const sarOpacity = layers.sar ? 1 : 0
+  // Alerts are computed for the 2023 year per BUILD_CONTRACT §3.10; on 2022
+  // there's nothing to show.
   const alertsVisible = layers.alerts && year === '2023'
 
   const visibleAlerts = useMemo(() => alerts, [])
@@ -35,11 +38,12 @@ export default function App() {
             opticalOpacity={opticalOpacity}
             sarOpacity={sarOpacity}
             alertsVisible={alertsVisible}
+            year={year}
             onSelect={setSelected}
             selectedId={selected?.id}
           />
 
-          {/* Floating panel */}
+          {/* Floating controls panel */}
           <div className="pointer-events-auto absolute right-6 top-6">
             <PeelControls
               peel={peel}
@@ -51,26 +55,47 @@ export default function App() {
             />
           </div>
 
-          {/* AOI annotation, top-left */}
-          <div className="absolute left-8 top-6 max-w-sm space-y-2">
+          {/* AOI annotation, top-left — both polygon and analysis bbox per §1 */}
+          <div className="absolute left-8 top-6 max-w-md space-y-2">
             <div className="text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
-              Area of interest
+              Area of interest · BUILD_CONTRACT §1
             </div>
             <div className="text-base">{aoi.name}</div>
-            <div className="font-mono text-[10px] text-muted-foreground">
-              bbox [{aoi.bbox.join(', ')}] · EPSG:4326
+            <div className="space-y-0.5 font-mono text-[10px] text-muted-foreground">
+              <div>analysis bbox · [{aoi.bbox.join(', ')}] · EPSG:4326</div>
+              <div>hotspot polygon · 113.4292, −1.0733, 113.5708, −0.9267</div>
             </div>
           </div>
 
-          {/* Year stamp, bottom-left of scene */}
-          <div className="absolute bottom-6 left-8 flex items-center gap-3">
-            <span className="font-mono text-6xl leading-none">{year}</span>
-            <div className="flex flex-col gap-1">
+          {/* Year stamp framed as a 2022 → 2023 comparison */}
+          <div className="absolute bottom-6 left-8 flex items-end gap-4">
+            <div className="flex items-baseline gap-2 font-mono">
+              <span
+                className={
+                  year === '2022'
+                    ? 'text-6xl leading-none'
+                    : 'text-3xl leading-none text-muted-foreground'
+                }
+              >
+                2022
+              </span>
+              <span className="text-2xl leading-none text-muted-foreground">→</span>
+              <span
+                className={
+                  year === '2023'
+                    ? 'text-6xl leading-none'
+                    : 'text-3xl leading-none text-muted-foreground'
+                }
+              >
+                2023
+              </span>
+            </div>
+            <div className="flex flex-col gap-1 pb-1">
               <span className="text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
-                Year
+                ALOS-2 PALSAR-2
               </span>
               <span className="text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
-                annual mosaic
+                annual mosaic · HV
               </span>
             </div>
           </div>
@@ -80,6 +105,8 @@ export default function App() {
           alertCount={summary.alert_count}
           totalAreaHa={summary.total_alert_area_ha}
           alertPct={summary.alert_area_pct_of_aoi}
+          usersAccuracy={summary.validation.users_accuracy}
+          producersAccuracy={summary.validation.producers_accuracy}
           f1={summary.validation.f1}
         />
 
@@ -108,12 +135,13 @@ function Header() {
           </Badge>
         </div>
       </div>
-      <div className="flex items-center gap-4 text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
-        <span>ALOS-2 PALSAR-2</span>
-        <Separator orientation="vertical" className="h-4" />
-        <span>2022 → 2023</span>
-        <Separator orientation="vertical" className="h-4" />
-        <span>v0.1 · hackathon</span>
+      <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3 text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
+          <span>BUILD_CONTRACT v0.1</span>
+          <Separator orientation="vertical" className="h-4" />
+          <span>orchestration review</span>
+        </div>
+        <DecisionsButton />
       </div>
     </header>
   )
