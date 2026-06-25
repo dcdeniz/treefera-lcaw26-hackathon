@@ -1,0 +1,73 @@
+{
+  "bounds": {
+    "west": 113.42914803166684,
+    "south": -1.0732621857017983,
+    "east": 113.5708572677367,
+    "north": -0.9266122155692864
+  },
+  "coordinates": [
+    [
+      113.42914803166684,
+      -0.9266122155692864
+    ],
+    [
+      113.5708572677367,
+      -0.9266122155692864
+    ],
+    [
+      113.5708572677367,
+      -1.0732621857017983
+    ],
+    [
+      113.42914803166684,
+      -1.0732621857017983
+    ]
+  ],
+  "center": [
+    113.50000264970177,
+    -0.9999372006355424
+  ],
+  "size_px": [
+    631,
+    653
+  ],
+  "layers": {
+    "hv_2022": {
+      "label": "PALSAR HV 2022 (\u03b3\u2070 dB)",
+      "stretch_db": [
+        -16.0,
+        -6.0
+      ]
+    },
+    "hv_2023": {
+      "label": "PALSAR HV 2023 (\u03b3\u2070 dB)",
+      "stretch_db": [
+        -16.0,
+        -6.0
+      ]
+    },
+    "loss": {
+      "label": "HV loss \u0394 (dB)",
+      "range_db": [
+        -7.0,
+        -0.5
+      ]
+    },
+    "clouds": {
+      "label": "Cloud cover (optical blind-spot)"
+    }
+  },
+  "metrics": {
+    "users_accuracy": 0.401,
+    "producers_accuracy": 0.301,
+    "f1": 0.344,
+    "tp": 878,
+    "fp": 1311,
+    "fn": 2042,
+    "hansen_2023_px": 2920,
+    "alert_px": 2189,
+    "note": "Hansen is optical (cloud-limited) \u2014 cross-reference, not ground truth (ADR-0005)",
+    "alert_area_pct_of_aoi": 0.53,
+    "object_precision_vs_hansen": 0.444
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "_provenance": "Mirrors src/config.py (BUILD_CONTRACT §3; ADR-0002 single source of tunable truth, ADR-0003 PALSAR already dB, ADR-0007 ship caveated).",
+  "aoi_id": "G_sar_borneo",
+  "year_pair": [2022, 2023],
+  "palsar_is_db": true,
+  "lee_size": 7,
+  "water_db": -24.0,
+  "nonforest_db": -14.0,
+  "delta_db": -2.5,
+  "mmu_ha": 0.2,
+  "frontier_area_ha": 1.0,
+  "frontier_delta_db": -3.0,
+  "hansen_loss_year": 23,
+  "validation_gate": {
+    "users_accuracy_min": 0.75,
+    "producers_accuracy_min": 0.65,
+    "f1_min": 0.70,
+    "alert_area_pct_of_aoi_range": [0.2, 8.0]
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "id": "ttc_validate",
+  "name": "Through the Clouds — validate alerts vs Hansen GFC",
+  "description": "Reads the cross-reference metrics emitted by ttc_detect_change and applies the BUILD_CONTRACT §4.4 demo gate. Hansen is optical/cloud-limited, so SAR-yes/Hansen-no is NOT auto-wrong (ADR-0005); the SPOT-7 visual check is flagged for human review (handoff §13.4).",
+  "tags": ["validation", "hansen", "ttc"],
+  "parameters": {
+    "run_id": {"type": "string", "required": true, "description": "the run_id whose /data/outputs/<run_id>/validation_metrics.json to grade"}
+  },
+  "steps": [
+    {
+      "id": "grade",
+      "tool": "execute_python",
+      "description": "Apply UA>=0.75 & PA>=0.65 & F1>=0.70 & alert_area_pct in [0.2,8] gate; flag SPOT visual for human review.",
+      "code": "import json, os\nmp = '/data/outputs/$run_id/validation_metrics.json'\nm = json.load(open(mp)) if os.path.exists(mp) else {}\ngate = (m.get('users_accuracy', 0) >= 0.75 and m.get('producers_accuracy', 0) >= 0.65 and m.get('f1', 0) >= 0.70 and 0.2 <= m.get('alert_area_pct_of_aoi', 0) <= 8)\nm['pipeline_passed'] = bool(gate)\nm['needs_human_review'] = True\nm['note_gate'] = 'Ships caveated regardless (ADR-0007); object-precision vs Hansen ' + str(m.get('object_precision_vs_hansen'))\nresult['validation'] = m\nresult['pipeline_passed'] = bool(gate)\nresult['success'] = True"
+    }
+  ],
+  "outputs": ["result.validation — UA/PA/F1/alert_area_pct + pipeline_passed + needs_human_review"]
+}

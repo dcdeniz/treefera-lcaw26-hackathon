@@ -1,0 +1,27 @@
+{
+  "id": "ttc_detect_change",
+  "name": "Through the Clouds — annual HV change detection",
+  "description": "Borneo PALSAR-2 L-band HV two-date deforestation alerts (BUILD_CONTRACT §3.4-3.10; ADR-0001 classical, ADR-0003 no DN->dB calibration). Automatable via run_recipe(id='ttc_detect_change', zone=...). The detect step execs /app/ttc-config/detect.py, a byte-faithful port of the proven src/ pipeline (validated: 54 alerts / UA 0.401 PA 0.301 F1 0.344). The vendor run_recipe only substitutes $zone, so inputs/thresholds are baked in and outputs go to /data/outputs/recipe_run/.",
+  "tags": ["sar", "deforestation", "borneo", "palsar", "ttc"],
+  "parameters": {
+    "zone": {"type": "string", "required": true, "default": "Central Kalimantan, Indonesia", "description": "Geocodable canvas study zone (cosmetic; detection is file-driven)."}
+  },
+  "steps": [
+    {"id": "zone", "tool": "set_study_zone", "params": {"target": "$zone"}, "description": "Define the canvas study zone over Central Kalimantan."},
+    {"id": "load_a", "tool": "add_layer", "params": {"uri": "/data/inputs/palsar_gee/G_sar_borneo/annual/2022/palsar_G_sar_borneo_2022.tif", "name": "PALSAR HV 2022", "type": "raster"}, "description": "Load the baseline-year PALSAR HV mosaic."},
+    {"id": "load_b", "tool": "add_layer", "params": {"uri": "/data/inputs/palsar_gee/G_sar_borneo/annual/2023/palsar_G_sar_borneo_2023.tif", "name": "PALSAR HV 2023", "type": "raster"}, "description": "Load the comparison-year PALSAR HV mosaic."},
+    {
+      "id": "detect",
+      "tool": "execute_python",
+      "description": "Despeckle (Lee 7x7) -> delta HV -> water/non-forest masks -> -2.5 dB threshold -> morphology -> MMU -> polygonize -> per-polygon attrs + Hansen cross-reference.",
+      "code": "params = {'run_id': 'recipe_run', 'palsar_a': '/data/inputs/palsar_gee/G_sar_borneo/annual/2022/palsar_G_sar_borneo_2022.tif', 'palsar_b': '/data/inputs/palsar_gee/G_sar_borneo/annual/2023/palsar_G_sar_borneo_2023.tif', 'hansen': '/data/inputs/hansen_lossyear/G_sar_borneo/hansen-lossyear_G_sar_borneo_2024.tif', 'out_dir': '/data/outputs/recipe_run', 'delta_db': -2.5, 'water_db': -24.0, 'nonforest_db': -14.0, 'mmu_ha': 0.2, 'frontier_area_ha': 1.0, 'frontier_delta_db': -3.0, 'lee': 7, 'hansen_loss_year': 23}\nexec(open('/app/ttc-config/detect.py').read())"
+    },
+    {"id": "load_alerts", "tool": "add_layer", "params": {"uri": "/data/outputs/recipe_run/alerts_2023.geojson", "name": "Alerts 2023 (HV loss)", "type": "vector"}, "description": "Load the alert polygons for canvas/screenshot/export."},
+    {"id": "export_gpkg", "tool": "export_layer", "params": {"layer": "Alerts 2023 (HV loss)", "format": "gpkg", "path": "/data/outputs/recipe_run/alerts_2023.gpkg"}, "description": "Emit a GeoPackage (desktop/download artifact)."}
+  ],
+  "outputs": [
+    "/data/outputs/recipe_run/alerts_2023.geojson — FeatureCollection (EPSG:4326), props: n_px, area_ha, mean_delta_hv_db, min_delta_hv_db, baseline_hv_db, candidate_plantation_frontier, hansen_gfc_2023",
+    "/data/outputs/recipe_run/alerts_2023.gpkg",
+    "/data/outputs/recipe_run/validation_metrics.json"
+  ]
+}

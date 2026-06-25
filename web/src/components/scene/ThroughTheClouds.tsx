@@ -34,95 +34,93 @@ export function ThroughTheClouds({ aoi, alerts = [], summary = null, mode = 'dem
   const alertsVisible = layers.alerts && year === '2023'
 
   const visibleAlerts = useMemo(() => alerts, [alerts])
-  const isEmpty = visibleAlerts.length === 0
 
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Header mode={mode} />
 
       <main className="relative">
-        <div className="relative h-[calc(100vh-200px)] min-h-[560px] w-full overflow-hidden">
-          <IsometricScene
-            alerts={visibleAlerts}
-            cloudOpacity={cloudOpacity}
-            opticalOpacity={opticalOpacity}
-            sarOpacity={sarOpacity}
-            alertsVisible={alertsVisible}
-            year={year}
-            onSelect={setSelected}
-            selectedId={selected?.id}
-          />
-
-          {/* Floating controls panel */}
-          <div className="pointer-events-auto absolute right-6 top-6">
-            <PeelControls
-              peel={peel}
-              setPeel={setPeel}
-              layers={layers}
-              setLayers={setLayers}
-              year={year}
-              setYear={setYear}
+        <div className="relative h-[calc(100vh-180px)] min-h-[620px] w-full overflow-hidden">
+          {mode === 'live' ? (
+            // Homepage live view: the isometric SAR-through-cloud viewer — OSM underlay →
+            // photographic + clouds → gradient reveal → real PALSAR HV deforestation
+            // detection, with analyst chrome (layers, legend, identify, metrics). Served
+            // self-contained from /public/qgis/map.html.
+            <iframe
+              src="/qgis/map.html"
+              title="Through the Clouds — SAR-through-cloud isometric viewer"
+              className="absolute inset-0 h-full w-full border-0"
             />
-          </div>
+          ) : (
+            <>
+              <IsometricScene
+                alerts={visibleAlerts}
+                cloudOpacity={cloudOpacity}
+                opticalOpacity={opticalOpacity}
+                sarOpacity={sarOpacity}
+                alertsVisible={alertsVisible}
+                year={year}
+                onSelect={setSelected}
+                selectedId={selected?.id}
+              />
 
-          {/* AOI annotation, top-left — both polygon and analysis bbox per §1 */}
-          <div className="absolute left-8 top-6 max-w-md space-y-2">
-            <div className="text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
-              Area of interest · BUILD_CONTRACT §1
-            </div>
-            <div className="text-base">{aoi.name}</div>
-            <div className="space-y-0.5 font-mono text-[10px] text-muted-foreground">
-              <div>analysis bbox · [{aoi.bbox.join(', ')}] · EPSG:4326</div>
-              <div>hotspot polygon · 113.4292, −1.0733, 113.5708, −0.9267</div>
-            </div>
-          </div>
+              {/* Floating controls panel */}
+              <div className="pointer-events-auto absolute right-6 top-6">
+                <PeelControls
+                  peel={peel}
+                  setPeel={setPeel}
+                  layers={layers}
+                  setLayers={setLayers}
+                  year={year}
+                  setYear={setYear}
+                />
+              </div>
 
-          {/* Year stamp framed as a 2022 → 2023 comparison */}
-          <div className="absolute bottom-6 left-8 flex items-end gap-4">
-            <div className="flex items-baseline gap-2 font-mono">
-              <span
-                className={
-                  year === '2022'
-                    ? 'text-6xl leading-none'
-                    : 'text-3xl leading-none text-muted-foreground'
-                }
-              >
-                2022
-              </span>
-              <span className="text-2xl leading-none text-muted-foreground">→</span>
-              <span
-                className={
-                  year === '2023'
-                    ? 'text-6xl leading-none'
-                    : 'text-3xl leading-none text-muted-foreground'
-                }
-              >
-                2023
-              </span>
-            </div>
-            <div className="flex flex-col gap-1 pb-1">
-              <span className="text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
-                ALOS-2 PALSAR-2
-              </span>
-              <span className="text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
-                annual mosaic · HV
-              </span>
-            </div>
-          </div>
-
-          {/* Live empty-state: no mock data, awaiting the API */}
-          {mode === 'live' && isEmpty && (
-            <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-              <div className="border border-border bg-background/80 px-5 py-4 text-center backdrop-blur">
-                <div className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
-                  live
+              {/* AOI annotation, top-left — both polygon and analysis bbox per §1 */}
+              <div className="absolute left-8 top-6 max-w-md space-y-2">
+                <div className="text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
+                  Area of interest · BUILD_CONTRACT §1
                 </div>
-                <div className="mt-1 text-sm">Awaiting live alerts</div>
-                <div className="mt-1 font-mono text-[10px] text-muted-foreground">
-                  GET /api/alerts — pending
+                <div className="text-base">{aoi.name}</div>
+                <div className="space-y-0.5 font-mono text-[10px] text-muted-foreground">
+                  <div>analysis bbox · [{aoi.bbox.join(', ')}] · EPSG:4326</div>
+                  <div>hotspot polygon · 113.4292, −1.0733, 113.5708, −0.9267</div>
                 </div>
               </div>
-            </div>
+
+              {/* Year stamp framed as a 2022 → 2023 comparison */}
+              <div className="absolute bottom-6 left-8 flex items-end gap-4">
+                <div className="flex items-baseline gap-2 font-mono">
+                  <span
+                    className={
+                      year === '2022'
+                        ? 'text-6xl leading-none'
+                        : 'text-3xl leading-none text-muted-foreground'
+                    }
+                  >
+                    2022
+                  </span>
+                  <span className="text-2xl leading-none text-muted-foreground">→</span>
+                  <span
+                    className={
+                      year === '2023'
+                        ? 'text-6xl leading-none'
+                        : 'text-3xl leading-none text-muted-foreground'
+                    }
+                  >
+                    2023
+                  </span>
+                </div>
+                <div className="flex flex-col gap-1 pb-1">
+                  <span className="text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
+                    ALOS-2 PALSAR-2
+                  </span>
+                  <span className="text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
+                    annual mosaic · HV
+                  </span>
+                </div>
+              </div>
+            </>
           )}
         </div>
 
