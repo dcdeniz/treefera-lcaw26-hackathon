@@ -3,6 +3,20 @@
 > One-shot brief for the next agent. Self-contained; you shouldn't need prior chat history.
 > Context lives in `conversations/` (append-only channel) + `mcp/README.md` + the ADRs in `docs/adr/`.
 
+> **STATUS PIN — 2026-06-25, after the cloud_nobs wire (mcp/Claude, overtaking shift)**
+> - ✅ **§1 (cloud blind-spot layer)** is DONE. Wired in `web/public/qgis/map.html` (commit
+>   `59b77bf` on `main`): new `cloud_nobs` raster source/layer above `optical`, first entry in
+>   `REV` with `curve: t => clamp(1 - t*1.35)`, label `Cloud blind-spot · no clear obs (2020-09)`.
+>   Verified via HTTP (asset 200, JS parses, draw order correct). **Not visually screenshot-tested
+>   in this session** — no headless browser was wired.
+> - 🟡 §3 (uncommitted work) — superseded. The map.html + assets are on `main`; only the
+>   `clouds.png` + `clouds_png()` in `render_overlays.py` remain as leftover dead code (harmless,
+>   prune when convenient).
+> - 🔓 Channel: latest message is `conversations/0015-mcp-to-all--cloud-nobs-layer-wired.md`.
+>   Open items still in §4 (sparkline, stale `alert_runs` doc); see that channel message + §4
+>   below for the carry-over list.
+> - Honesty constraints in §5 are UNCHANGED — protect them.
+
 ## 0. Where we are in one paragraph
 The QGIS-MCP → Mongo → REST stack shipped (PR #7, merged to `main`). The homepage (`/`) now renders an
 **isometric MapLibre SAR viewer** (`web/public/qgis/map.html`, embedded via an iframe in
