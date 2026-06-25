@@ -78,7 +78,7 @@ const potentialCustomers: CustomerTarget[] = [
 export function CommercialTabs() {
   return (
     <section className="border-t border-border bg-background">
-      <div className="mx-auto max-w-screen-2xl px-8 py-10">
+      <div className="mx-auto max-w-screen-2xl px-4 py-8 md:px-8 md:py-10">
         <Tabs defaultValue="market" className="gap-6">
           <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
             <div className="space-y-2">
@@ -116,7 +116,7 @@ export function CommercialTabs() {
             </div>
           </TabsContent>
 
-          <TabsContent value="build" className="-mx-8 -mb-10">
+          <TabsContent value="build" className="-mx-4 -mb-8 md:-mx-8 md:-mb-10">
             <MethodologyStrip />
           </TabsContent>
         </Tabs>

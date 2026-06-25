@@ -12,11 +12,11 @@ type Props = {
 export function AlertDrawer({ alert, onClose }: Props) {
   return (
     <Sheet open={!!alert} onOpenChange={(o) => !o && onClose()}>
-      <SheetContent side="right" className="w-[440px] sm:max-w-[440px] p-0">
+      <SheetContent side="right" className="w-full max-w-full sm:w-[440px] sm:max-w-[440px] p-0">
         {alert && (
           <>
-            <SheetHeader className="space-y-3 border-b border-border px-6 py-5">
-              <div className="flex items-center justify-between">
+            <SheetHeader className="space-y-3 border-b border-border px-4 py-4 sm:px-6 sm:py-5">
+              <div className="flex flex-wrap items-center justify-between gap-2">
                 <SheetTitle className="font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">
                   {alert.id}
                 </SheetTitle>
@@ -30,7 +30,7 @@ export function AlertDrawer({ alert, onClose }: Props) {
               </div>
             </SheetHeader>
 
-            <div className="space-y-6 px-6 py-6">
+            <div className="space-y-6 px-4 py-5 sm:px-6 sm:py-6">
               <Section label="Isometric inset">
                 <div className="flex h-44 items-center justify-center border border-border bg-card">
                   <MiniIso alert={alert} />

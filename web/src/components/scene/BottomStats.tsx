@@ -1,5 +1,4 @@
 import { Separator } from '@/components/ui/separator'
-import { Badge } from '@/components/ui/badge'
 import { evaluateGate } from '@/data/contract'
 
 type Props = {
@@ -27,8 +26,8 @@ export function BottomStats({
   })
 
   return (
-    <div className="border-t border-border bg-background/95 px-8 py-5 backdrop-blur">
-      <div className="mx-auto flex max-w-screen-2xl items-end justify-between gap-8">
+    <div className="border-t border-border bg-background/95 px-4 py-4 backdrop-blur md:px-8 md:py-5">
+      <div className="mx-auto grid max-w-screen-2xl grid-cols-2 items-end gap-x-4 gap-y-4 sm:grid-cols-3 md:flex md:justify-between md:gap-8">
         <Stat label="Alerts · 2023" value={alertCount.toString()} unit="polygons" hero />
         <Sep />
         <Stat label="Total alert area" value={totalAreaHa.toFixed(1)} unit="ha" />
@@ -58,8 +57,6 @@ export function BottomStats({
           rule="≥ 0.70"
           pass={gate.checks[2].pass}
         />
-        <Sep />
-        <GatePill pass={gate.pass} />
       </div>
     </div>
   )
@@ -119,22 +116,8 @@ function GateMetric({
   )
 }
 
-function GatePill({ pass }: { pass: boolean }) {
-  return (
-    <div className="flex flex-col items-end gap-1">
-      <span className="text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
-        §4.4 gate
-      </span>
-      <Badge
-        variant={pass ? 'default' : 'outline'}
-        className="font-mono text-[11px] uppercase tracking-[0.18em]"
-      >
-        {pass ? '■ pass' : '□ fail'}
-      </Badge>
-    </div>
-  )
-}
-
+// Separator only appears on the desktop flex row — on the mobile grid we let
+// the gap do the work.
 function Sep() {
-  return <Separator orientation="vertical" className="h-10" />
+  return <Separator orientation="vertical" className="hidden h-10 md:block" />
 }

@@ -16,7 +16,7 @@ export function MethodologyStrip() {
 function AgentsStrip() {
   return (
     <section className="border-t border-border bg-background">
-      <div className="mx-auto max-w-screen-2xl px-8 py-10">
+      <div className="mx-auto max-w-screen-2xl px-4 py-8 md:px-8 md:py-10">
         <Header
           left="Orchestration · 6 agents"
           right="BUILD_CONTRACT §2"
@@ -53,7 +53,7 @@ function AgentsStrip() {
 function PipelineStrip() {
   return (
     <section className="border-t border-border bg-background">
-      <div className="mx-auto max-w-screen-2xl px-8 py-10">
+      <div className="mx-auto max-w-screen-2xl px-4 py-8 md:px-8 md:py-10">
         <Header
           left="Pipeline · 11 steps"
           right="BUILD_CONTRACT §3"

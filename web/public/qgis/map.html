@@ -50,6 +50,24 @@
     .badge{ display:inline-block; padding:1px 5px; border-radius:4px; font-size:9px; }
     .maplibregl-ctrl-group{ background:#0d1219; } .maplibregl-ctrl-group button{ filter:invert(.9); }
     .maplibregl-ctrl-attrib{ background:rgba(7,8,9,.6)!important; } .maplibregl-ctrl-attrib a{ color:var(--muted)!important; }
+
+    /* Mobile: 236px-wide analyst panels collide on a 375px screen. Drop the
+       non-essential ones (layer toggles, HUD stats, legend) — leave only the
+       reveal-gradient hero control, the map itself, and a compact status line.
+       Bumping the breakpoint a bit so tablets in portrait still look clean. */
+    @media (max-width: 720px) {
+      #layers, #hud, #legend { display:none !important; }
+      #reveal { bottom:36px; left:8px; right:8px; transform:none; width:auto; padding:8px 12px 10px; }
+      #reveal .play { top:-26px; right:0; font-size:9.5px; padding:2px 7px; }
+      #reveal .lab { font-size:8.5px; gap:6px; }
+      #reveal .lab span { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+      #status { height:22px; padding:0 8px; gap:10px; font-size:9.5px; }
+      /* hide the noisier readouts; keep the identify line which is the
+         interactive feedback */
+      #status > span:nth-child(1),
+      #status > span:nth-child(2),
+      #status > span:nth-child(3) { display:none; }
+    }
   </style>
 </head>
 <body>

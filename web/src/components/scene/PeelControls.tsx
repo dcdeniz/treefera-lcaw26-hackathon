@@ -16,13 +16,13 @@ type Props = {
 
 export function PeelControls({ peel, setPeel, layers, setLayers, year, setYear }: Props) {
   return (
-    <Card className="w-[280px] border-border/80 bg-card/95 backdrop-blur">
+    <Card className="w-[210px] border-border/80 bg-card/95 backdrop-blur md:w-[280px]">
       <CardHeader className="pb-2">
         <CardTitle className="text-xs uppercase tracking-[0.14em] text-muted-foreground">
           Controls
         </CardTitle>
       </CardHeader>
-      <CardContent className="space-y-5">
+      <CardContent className="space-y-4 md:space-y-5">
         <div className="space-y-2">
           <Label className="text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
             Peel · {Math.round(peel * 100)}%

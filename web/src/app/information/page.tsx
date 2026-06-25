@@ -26,18 +26,42 @@ export default function InformationPage() {
       <HonestLimits />
       <WhereNext />
       <Footer />
+      <DesktopQrCorner />
     </main>
+  )
+}
+
+// QR code anchored to the bottom-right corner. Visible only on desktop (md+)
+// so it doesn't crowd small screens. Targets attendees scanning from the
+// projector at LCAW.
+function DesktopQrCorner() {
+  return (
+    <div className="pointer-events-none fixed bottom-4 right-4 z-50 hidden md:block">
+      <div className="pointer-events-auto flex flex-col items-end gap-1 border border-border bg-background/95 p-2 backdrop-blur">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/download.png"
+          alt="Scan to open Through the Clouds"
+          width={120}
+          height={120}
+          className="block h-[120px] w-[120px]"
+        />
+        <span className="font-mono text-[9px] uppercase tracking-[0.16em] text-muted-foreground">
+          scan to open
+        </span>
+      </div>
+    </div>
   )
 }
 
 function TopBar() {
   return (
     <div className="border-b border-border">
-      <div className="mx-auto flex max-w-screen-2xl items-center justify-between px-8 py-4">
+      <div className="mx-auto flex max-w-screen-2xl flex-wrap items-center justify-between gap-y-2 px-4 py-3 md:px-8 md:py-4">
         <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
           Through the Clouds · LCAW 2026
         </span>
-        <nav className="flex gap-5 font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
+        <nav className="flex flex-wrap gap-x-4 gap-y-1 font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground sm:gap-5">
           <Link href="/" className="hover:text-foreground">Live</Link>
           <Link href="/demo" className="hover:text-foreground">Demo</Link>
           <Link href="/map" className="hover:text-foreground">Map</Link>
@@ -51,7 +75,7 @@ function TopBar() {
 function Hero() {
   return (
     <section className="border-b border-border">
-      <div className="mx-auto max-w-screen-2xl px-8 py-16">
+      <div className="mx-auto max-w-screen-2xl px-4 py-10 md:px-8 md:py-16">
         <p className="mb-4 font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
           What this project is
         </p>
@@ -101,7 +125,7 @@ const PROBLEM_CARDS = [
 function Problem() {
   return (
     <section className="border-b border-border">
-      <div className="mx-auto max-w-screen-2xl px-8 py-14">
+      <div className="mx-auto max-w-screen-2xl px-4 py-10 md:px-8 md:py-14">
         <SectionHeader left="The problem" right="Why this needed to exist" />
         <div className="grid gap-4 md:grid-cols-3">
           {PROBLEM_CARDS.map((c) => (
@@ -147,7 +171,7 @@ const PIECES = [
 function WhatWeBuilt() {
   return (
     <section className="border-b border-border">
-      <div className="mx-auto max-w-screen-2xl px-8 py-14">
+      <div className="mx-auto max-w-screen-2xl px-4 py-10 md:px-8 md:py-14">
         <SectionHeader left="What we built" right="Four pieces, one story" />
         <div className="grid gap-4 md:grid-cols-2">
           {PIECES.map((p) => (
@@ -208,7 +232,7 @@ const STEPS = [
 function HowItWorks() {
   return (
     <section className="border-b border-border">
-      <div className="mx-auto max-w-screen-2xl px-8 py-14">
+      <div className="mx-auto max-w-screen-2xl px-4 py-10 md:px-8 md:py-14">
         <SectionHeader left="How it works" right="Seven steps, no magic" />
         <div className="grid gap-3 md:grid-cols-2">
           {STEPS.map((s) => (
@@ -261,7 +285,7 @@ const DATA_ROWS = [
 function DataSources() {
   return (
     <section className="border-b border-border">
-      <div className="mx-auto max-w-screen-2xl px-8 py-14">
+      <div className="mx-auto max-w-screen-2xl px-4 py-10 md:px-8 md:py-14">
         <SectionHeader left="The data we used" right="Five sources, public and free" />
         <div className="grid gap-3">
           {DATA_ROWS.map((r) => (
@@ -318,7 +342,7 @@ const DECISIONS = [
 function WhyTheseChoices() {
   return (
     <section className="border-b border-border">
-      <div className="mx-auto max-w-screen-2xl px-8 py-14">
+      <div className="mx-auto max-w-screen-2xl px-4 py-10 md:px-8 md:py-14">
         <SectionHeader left="Why we made these choices" right="The decisions behind the build" />
         <div className="grid gap-3">
           {DECISIONS.map((d) => (
@@ -358,7 +382,7 @@ const LIMITS = [
 function HonestLimits() {
   return (
     <section className="border-b border-border">
-      <div className="mx-auto max-w-screen-2xl px-8 py-14">
+      <div className="mx-auto max-w-screen-2xl px-4 py-10 md:px-8 md:py-14">
         <SectionHeader left="What this is not" right="Honest about the edges" />
         <div className="grid gap-4 md:grid-cols-2">
           {LIMITS.map((l) => (
@@ -402,7 +426,7 @@ const NEXT = [
 function WhereNext() {
   return (
     <section className="border-b border-border">
-      <div className="mx-auto max-w-screen-2xl px-8 py-14">
+      <div className="mx-auto max-w-screen-2xl px-4 py-10 md:px-8 md:py-14">
         <SectionHeader left="Where this goes next" right="The road from demo to product" />
         <div className="grid gap-3 md:grid-cols-2">
           {NEXT.map((n) => (
@@ -423,7 +447,7 @@ function WhereNext() {
 
 function Footer() {
   return (
-    <footer className="mx-auto max-w-screen-2xl px-8 py-10">
+    <footer className="mx-auto max-w-screen-2xl px-4 py-8 md:px-8 md:py-10">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
           Through the Clouds · Treefera · LCAW 2026
