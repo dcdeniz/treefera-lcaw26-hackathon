@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 # Through the Clouds — USP & Borneo Pilot Targets
 
 > Replaces `Treefera Hackathon.md`. The old file listed generic EUDR commodity
@@ -220,3 +221,168 @@ required.
 - [Sustainalytics — Palm Oil in Focus: EUDR](https://www.sustainalytics.com/esg-research/resource/investors-esg-blog/palm-oil-in-focus--the-eudr-and-corporate-efforts-on-transparent-sourcing)
 - [Treefera — Series A](https://www.treefera.com/blog/treefera-raises-usd12m-series-a-for-ai-platform-bringing-transparency-to-nature-data)
 - [Supply Chain Digital — Treefera company report](https://supplychaindigital.com/company-reports/treefera-unlocking-the-supply-chains-first-mile)
+=======
+# Through the Clouds - USP and Borneo Pilot Targets
+
+This file is the commercial orchestration layer for the Borneo SAR proof of concept. Use it to decide who to sell to first, why they should care now, and which verified public route to use for outreach.
+
+## 1. Product wedge
+
+Sell a cloud- and canopy-penetrating deforestation alert layer for Borneo, built from local L-band SAR mosaics and packaged as auditable evidence for EUDR, NDPE, carbon MRV, concession monitoring, and NGO grievance work.
+
+The core claim is simple: optical monitoring misses events under persistent cloud, and C-band systems struggle more under closed humid-tropical canopy. L-band PALSAR gives a stronger structural signal for forest loss and plantation conversion. The demo proves this on a known Borneo frontier with before/after SAR layers, alert polygons, area totals, and a web map a non-technical buyer can inspect.
+
+## 2. Buyer pain
+
+### Palm oil producers and traders
+
+They need defensible proof that plantations, mills, and supplier catchments are not expanding into forest. The 2026 EUDR deadline turns geolocation and deforestation-free proof into a board-level compliance issue for palm oil exporters and downstream buyers. Lead with risk reduction: fewer blind spots during cloudy months, fewer disputed grievance cases, and faster internal escalation.
+
+### Carbon project developers and MRV teams
+
+They need independent monitoring over peat swamp and tropical forest where cloud-free optical scenes are irregular. Lead with audit support: project boundary monitoring, leakage screening, and a repeatable evidence pack for verification.
+
+### NGOs, certifiers, and data providers
+
+They need faster, cheaper triage for suspicious clearings, especially in remote concessions. Lead with case-building: polygons, dates, area estimates, and source rasters that can be checked against SPOT, Planet, Sentinel-2, Hansen, RADD, and concession maps.
+
+### Banks, insurers, and downstream commodity buyers
+
+They need portfolio-level exposure screening before financing, procurement, or insurance renewal. Lead with supplier risk scoring: which mills, concessions, or sourcing areas have new forest loss signals.
+
+## 3. Why now
+
+The European Commission states that the EU Deforestation Regulation covers palm oil, rubber, wood, cattle, soy, coffee, cocoa, and derived products, and requires operators and traders to prove that goods are deforestation-free. The revised application dates are 30 December 2026 for large and medium operators and 30 June 2027 for micro and small operators. This creates an immediate 2026 sales window for palm, rubber, timber, and downstream procurement teams with Borneo exposure.
+
+Use this deadline in every first email. Do not pitch "AI monitoring" first. Pitch "L-band SAR evidence for cloudy Borneo supply areas before the EUDR enforcement date."
+
+## 4. What to sell first
+
+Sell a 30-day paid pilot, not a platform license.
+
+Pilot package:
+
+- One Borneo AOI: 50 km by 50 km around a known active frontier or supplier catchment.
+- One historic comparison: 2022 versus 2023 PALSAR HV loss polygons.
+- One current-risk appendix: Hansen/RADD/JJ-FAST cross-check where available.
+- One browser map: prior SAR, later SAR, alert polygons, area statistics.
+- One executive memo: total alert area, top 10 polygons, nearest concessions or mills if buyer provides boundaries.
+
+Price anchor: USD 15k for a single AOI pilot. Move to USD 50k-150k annual monitoring only after the pilot produces buyer-specific evidence.
+
+## 5. Proof-of-concept positioning
+
+Use these claims only:
+
+- "Works through cloud because the critical signal is SAR, not optical."
+- "Uses L-band structure-sensitive backscatter for tropical forest loss screening."
+- "Designed for Borneo, where cloud, peat, fragmented concession boundaries, and oil-palm expansion make optical-only monitoring weak."
+- "Outputs buyer-readable evidence: polygons, hectares, dates, map, and source raster references."
+
+Do not claim legal compliance certification, near-real-time alerts from annual mosaics, or perfect oil-palm species classification. The demo detects forest loss and crop-change candidates; it does not certify final land use.
+
+## 6. Immediate outreach list
+
+Use verified public executive routes. Do not guess private CEO email addresses. Address the email to the named executive and route it through the listed public sustainability, investor relations, corporate secretary, or contact channel.
+
+| Priority | Account | Why they are viable now | Executive target | Verified route | First pitch |
+|---|---|---|---|---|---|
+| 1 | Wilmar International | Major palm trader and plantation operator with Indonesia, Sabah, and Sarawak exposure. Public plantation page lists West Kalimantan, Central Kalimantan, Sabah, and Sarawak operations. | Kuok Khoon Hong, Chairman and CEO | `csr@wilmar.com.sg`, `ir@wilmar.com.sg`, `palmandlaurics@wilmar.com.sg` | "Run a 30-day L-band SAR pilot on one Kalimantan supplier catchment before EUDR enforcement." |
+| 2 | Bumitama Agri | Pure Borneo palm exposure, strong fit for West/Central Kalimantan frontier monitoring. | Lim Gunawan Hariyanto, Executive Chairman and CEO | `sustainability@bumitama-agri.com`, `investor.relations@bumitama-agri.com` | "Prove forest-loss monitoring under cloud for Bumitama estates and adjacent risk zones." |
+| 3 | First Resources | Operates over 200,000 ha across Riau, East Kalimantan, and West Kalimantan. | Ciliandra Fangiono, CEO | Contact form: `https://www.first-resources.com/contact-us/` using Sustainability or Investors | "Screen East and West Kalimantan estates for annual SAR loss polygons and unresolved supplier risk." |
+| 4 | Kuala Lumpur Kepong | Plantation group with sustainability and investor routes; strong buyer for EUDR and NDPE evidence. | Tan Sri Dato' Seri Lee Oi Hian, Executive Chairman; Patrick Ng, Group Plantations Director | `contactus@klk.com.my`, `corp.comms@klk.com.my`, `mktg@klk.com.my` | "Pilot an auditable Borneo SAR layer for plantation compliance and supplier screening." |
+| 5 | SD Guthrie | Large plantation company, formerly Sime Darby Plantation, with board-level sustainability exposure. | Mohd Haris Mohd Arshad, President and Group CEO | Contact form: `https://www.sdguthrie.com/contact-us/` using Investor Relations or sustainability route | "Add L-band SAR evidence to existing responsible sourcing and grievance workflows." |
+| 6 | Golden Agri-Resources | Major palm group with public sustainability contact pathway and Borneo exposure through Indonesian operations. | GAR executive management; verify current named leader before send | Contact form: `https://www.goldenagri.com.sg/contact-us/`, topic Sustainability Matters or Investor Relations; phone `+65 6590 0800` | "Run a Borneo proof point on one supplier landscape and package it for EUDR/NDPE review." |
+| 7 | Musim Mas | Integrated palm group with supplier and grievance exposure; good buyer for catchment monitoring. | Bachtiar Karim, executive leadership target; verify title before send | Contact form: `https://www.musimmas.com/contact-us/`; corporate phone `(65) 6576 6500` | "Use L-band SAR to reduce blind spots in supplier catchments during cloudy months." |
+| 8 | Permian Global / Katingan Mentaya | Central Kalimantan peat forest carbon project with 157,875 ha project area and 149,800 ha carbon accounting area. | CEO / MRV lead / project director | `info@permianglobal.com` | "Provide independent SAR monitoring for leakage, encroachment, and verification evidence." |
+| 9 | Earthqualizer | Indonesia-based supply-chain monitoring organization; likely fast evaluator and resale/validation partner. | Secretariat / monitoring lead | `secretariat@earthqualizer.org` | "Test Borneo SAR polygons against your grievance and supply-chain intelligence workflow." |
+| 10 | AidEnvironment / Sangga Bumi Lestari | NGO and supply-chain accountability team with Indonesia office and commodity deforestation focus. | Indonesia deforestation-free supply chains lead | `info@sanggabumilestari.org`, `info@aidenvironment.org` | "Use the demo as an independent L-band evidence layer for Borneo cases." |
+| 11 | Mighty Earth | Campaign organization that uses company-linked deforestation evidence. | Palm oil campaign / rapid response lead | `inquiry@mightyearth.org`, `communications@mightyearth.org` | "Offer Borneo SAR polygons as a case-triage layer for cloudy frontier alerts." |
+| 12 | RSPO GeoRSPO / GIS Team | Certification body needs hotspot and concession intelligence; public contact page lists GIS Team for Hotspot Hub/GeoRSPO. | GIS Team / GeoRSPO lead; verify current executive signer before send | Contact page: `https://rspo.org/contact-us/`, route to GIS Team or Standards | "Offer L-band SAR polygons as a supplemental monitoring layer for GeoRSPO and complaints triage." |
+| 13 | Astra Agro Lestari | Indonesian plantation group with Kalimantan exposure and formal corporate secretary route. | Djap Tet Fa, President Director; Tingning Sukowignjo, Corporate Secretary | Corporate secretary page and phone `(021) 4616555` | "Send a compliance pilot to Corporate Secretary and Sustainability for Kalimantan estate screening." |
+| 14 | Dharma Satya Nusantara | Indonesian palm and wood-products group with ESG reporting and public contact email. | President Director / ESG lead; verify current name before send | `info@dsngroup.co.id` | "Screen East Kalimantan palm and wood-product landscapes for forest-loss exposure." |
+| 15 | Sarawak Oil Palms | Sarawak-focused operator; tight geography makes it a good demo buyer if contact is verified. | Managing Director / sustainability lead; verify current name before send | Contact form: `https://sop.com.my/contact-us/` | "Offer a Sarawak-only SAR pilot with mill/estate-adjacent alert polygons." |
+| 16 | APRIL / RGE | Pulp and paper buyer with public scrutiny over Kalimantan supplier deforestation. | APRIL/RGE sustainability leadership | APRIL/RGE sustainability contact form; verify current route before send | "Run an independent SAR evidence pilot for Kalimantan supplier risk after recent public scrutiny." |
+
+## 7. Email copy
+
+### Palm producer / trader
+
+Subject: Borneo L-band SAR pilot for EUDR and NDPE evidence
+
+Hi [Name],
+
+We built a Borneo proof of concept that detects forest-loss and plantation-change candidates through persistent cloud using L-band SAR. The output is not another dashboard demo: it is an auditable evidence pack with before/after SAR layers, alert polygons, hectares, and source raster references.
+
+I want to run one 30-day pilot on a Kalimantan supplier catchment before the 30 December 2026 EUDR application date for large and medium operators. The pilot deliverable is a browser map and executive memo showing the top forest-loss polygons and the evidence behind them.
+
+Can I send a one-page sample from the current Borneo run?
+
+### Carbon MRV / project developer
+
+Subject: Independent SAR monitoring for Central Kalimantan peat forest
+
+Hi [Name],
+
+We built a L-band SAR monitoring proof of concept for Borneo forest loss under persistent cloud. It is designed for peat forest and plantation-frontier settings where optical monitoring is intermittent.
+
+For a carbon project, the useful deliverable is a simple audit pack: project boundary overlay, annual SAR loss polygons, area totals, and visual evidence layers that can be checked against SPOT, Sentinel-2, Hansen, RADD, or field reports.
+
+I want to run a 30-day pilot on one Central Kalimantan project boundary and deliver a verification-ready map plus memo.
+
+### NGO / certifier / data partner
+
+Subject: Borneo SAR alert layer for cloudy-frontier deforestation cases
+
+Hi [Name],
+
+We built a Borneo proof of concept that uses L-band SAR to flag forest-loss and crop-change candidates where optical imagery is unreliable. The output is a polygon evidence layer, not a black-box score.
+
+I want to test it against your existing Borneo cases and compare which polygons are useful, missed, or false positive. If the layer works, it becomes a cheap triage feed for complaint screening, hotspot review, or company engagement.
+
+Can I send the current sample map?
+
+## 8. Sales qualification rules
+
+- Prioritize Borneo-exposed palm producers, palm traders, carbon MRV teams, and monitoring NGOs first.
+- Do not lead with downstream CPGs until one operator or NGO pilot exists; their procurement cycles are slower.
+- Do not sell "oil palm classification" as the primary claim. Sell "forest loss and crop-change candidates under cloud."
+- Do not promise near-real-time alerts from annual PALSAR mosaics. Promise annual evidence first; add Sentinel-1 monthly monitoring only as a stretch.
+- Do not use unverified CEO emails. Route to official sustainability, investor relations, corporate secretary, GIS, or contact-form channels.
+
+## 9. Dead accounts for now
+
+- Sawit Sumbermas Sarana: the visible contact page contains placeholder-looking email text. Do not email until a human verifies a current corporate route.
+- Sampoerna Agro / Prime Agri Resources: the public site is not enough for a clean first outreach route. Revisit after the first 10 accounts.
+- Generic "ESG data platforms": keep them for channel partnerships after the Borneo demo proves buyer-specific value.
+
+## 10. Source links
+
+- European Commission EUDR: `https://environment.ec.europa.eu/topics/forests/deforestation/regulation-deforestation-free-products_en`
+- European Commission EUDR implementation: `https://green-forum.ec.europa.eu/nature-and-biodiversity/deforestation-regulation-implementation_en`
+- Wilmar leadership: `https://www.wilmar-international.com/about-us/leadership`
+- Wilmar plantation operations: `https://www.wilmar-international.com/our-businesses/plantation/oil-palm-plantation-milling`
+- Wilmar contact: `https://www.wilmar-international.com/contact-us`
+- Bumitama contact: `https://bumitama-agri.com/contact-us/`
+- Bumitama leadership: `https://bumitama-agri.com/about-us/lim-gunawan-hariyanto/`
+- First Resources corporate profile: `https://www.first-resources.com/about-us/corporate-profile/`
+- First Resources board: `https://www.first-resources.com/about-us/board-of-directors/`
+- First Resources contact: `https://www.first-resources.com/contact-us/`
+- KLK contact: `https://www.klk.com.my/contact-us/`
+- KLK board: `https://www.klk.com.my/board-of-directors/`
+- KLK senior management: `https://www.klk.com.my/senior-management/`
+- SD Guthrie leaders: `https://www.sdguthrie.com/who-we-are/our-leaders`
+- SD Guthrie contact: `https://www.sdguthrie.com/contact-us/`
+- Golden Agri contact: `https://www.goldenagri.com.sg/contact-us/`
+- Musim Mas contact: `https://www.musimmas.com/contact-us/`
+- Permian Global contact: `https://permianglobal.com/contact/`
+- Katingan Mentaya project: `https://permianglobal.com/projects/katingan-mentaya-project/`
+- Earthqualizer contact: `https://earthqualizer.org/contact/`
+- AidEnvironment contact: `https://www.aidenvironment.org/contact/`
+- Mighty Earth contact: `https://mightyearth.org/about/contact/`
+- RSPO contact: `https://rspo.org/contact-us/`
+- Astra Agro corporate secretary: `https://www.astra-agro.co.id/corporate-secretary-2/`
+- Astra Agro directors: `https://www.astra-agro.co.id/management-profile-2/management-profile/`
+- Dharma Satya Nusantara contact: `https://dsn.co.id/contact-us/`
+- APRIL supplier scrutiny reference: `https://news.mongabay.com/2026/06/pulp-and-paper-giant-april-adds-major-deforesters-as-suppliers-after-revising-sustainability-policy/`
+>>>>>>> Stashed changes
