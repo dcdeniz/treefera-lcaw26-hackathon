@@ -45,12 +45,12 @@ function makeAlerts(n: number): Alert[] {
       min_delta_hv_db: min_d,
       baseline_hv_db: baseline,
       candidate_plantation_frontier: frontier,
+      year: 2018 + (i % 7),
       cross_checks: {
         hansen_gfc_2023: r() > 0.25,
         radd_2023: r() > 0.4,
         spot_visual: r() > 0.6 ? 'forest' : r() > 0.3 ? 'cleared' : 'unclear',
       },
-      delta_series: Array.from({ length: 12 }, () => +(-0.5 - r() * 4).toFixed(2)),
     })
   }
   return out

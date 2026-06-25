@@ -1,0 +1,13 @@
+{
+  "users_accuracy": 0.494,
+  "producers_accuracy": 0.29,
+  "f1": 0.365,
+  "tp": 1798,
+  "fp": 1844,
+  "fn": 4412,
+  "hansen_2023_px": 6210,
+  "alert_px": 3642,
+  "note": "Hansen is optical (cloud-limited) \u2014 cross-reference, not ground truth (ADR-0005)",
+  "alert_area_pct_of_aoi": 0.88,
+  "object_precision_vs_hansen": 0.846
+}

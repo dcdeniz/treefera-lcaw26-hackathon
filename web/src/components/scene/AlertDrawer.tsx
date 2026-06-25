@@ -2,7 +2,7 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sh
 import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'
 import { floorCorners, polyPath, prismFaces } from '@/lib/iso'
-import type { Alert } from '@/data/mock'
+import type { Alert } from '@/lib/types'
 
 type Props = {
   alert: Alert | null
@@ -25,7 +25,7 @@ export function AlertDrawer({ alert, onClose }: Props) {
               <div className="flex items-baseline gap-2">
                 <span className="text-4xl leading-none">{alert.area_ha.toFixed(1)}</span>
                 <span className="text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
-                  hectares lost
+                  hectares lost · {alert.year}
                 </span>
               </div>
             </SheetHeader>
@@ -39,7 +39,7 @@ export function AlertDrawer({ alert, onClose }: Props) {
 
               <Section label="HV backscatter">
                 <div className="grid grid-cols-3 gap-3">
-                  <Metric label="Baseline 2022" value={`${alert.baseline_hv_db.toFixed(2)} dB`} />
+                  <Metric label="Baseline" value={`${alert.baseline_hv_db.toFixed(2)} dB`} />
                   <Metric
                     label="Mean Δ"
                     value={`${alert.mean_delta_hv_db.toFixed(2)} dB`}
@@ -49,15 +49,11 @@ export function AlertDrawer({ alert, onClose }: Props) {
                 </div>
               </Section>
 
-              <Section label="Δ HV monthly · 2023">
-                <Sparkline data={alert.delta_series} />
-              </Section>
-
               <Section label="Cross-checks · BUILD_CONTRACT §5">
                 <div className="flex flex-col gap-2">
                   <CheckRow
                     label="Hansen GFC"
-                    rule="lossyear == 23 ∧ treecover2000 ≥ 30"
+                    rule={`lossyear == ${alert.year - 2000} ∧ treecover2000 ≥ 30`}
                     state={alert.cross_checks.hansen_gfc_2023 ? 'agree' : 'silent'}
                   />
                   <CheckRow
@@ -151,33 +147,6 @@ function CheckRow({
         <span className="uppercase tracking-[0.14em] text-[10px]">{text}</span>
       </span>
     </div>
-  )
-}
-
-function Sparkline({ data }: { data: number[] }) {
-  const w = 360
-  const h = 60
-  const min = Math.min(...data)
-  const max = Math.max(...data, 0)
-  const range = max - min || 1
-  const step = w / (data.length - 1)
-  const pts = data
-    .map((v, i) => `${(i * step).toFixed(2)},${(h - ((v - min) / range) * h).toFixed(2)}`)
-    .join(' L')
-  return (
-    <svg viewBox={`0 0 ${w} ${h}`} className="h-16 w-full">
-      <line x1={0} x2={w} y1={h} y2={h} stroke="#2a2a2a" strokeWidth={0.5} />
-      <path d={`M${pts}`} fill="none" stroke="#ffffff" strokeWidth={1.4} />
-      {data.map((v, i) => (
-        <circle
-          key={i}
-          cx={i * step}
-          cy={h - ((v - min) / range) * h}
-          r={1.6}
-          fill="#ffffff"
-        />
-      ))}
-    </svg>
   )
 }
 

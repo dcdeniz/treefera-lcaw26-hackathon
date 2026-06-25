@@ -6,6 +6,17 @@ DATA = REPO / "real-data"
 
 PALSAR_2022 = DATA / "palsar_gee/G_sar_borneo/annual/2022/palsar_G_sar_borneo_2022.tif"
 PALSAR_2023 = DATA / "palsar_gee/G_sar_borneo/annual/2023/palsar_G_sar_borneo_2023.tif"
+
+
+def palsar_path(year):
+    """Annual PALSAR HV mosaic for a year (under real-data/, which is gitignored — the multi-year
+    run only works on the checkout that ran the Drive download; the committed alerts.json is the
+    portable artifact)."""
+    return DATA / f"palsar_gee/G_sar_borneo/annual/{year}/palsar_G_sar_borneo_{year}.tif"
+
+
+# All annual PALSAR years present on disk → consecutive pairs drive the 2018→2024 scrubber.
+PALSAR_YEARS = [2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024]
 HANSEN = DATA / "hansen_lossyear/G_sar_borneo/hansen-lossyear_G_sar_borneo_2024.tif"
 AOI_GEOJSON = REPO / "data/drive_raw/boundary-files/G_sar_borneo_aoi.geojson"
 

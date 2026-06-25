@@ -1,8 +1,8 @@
 """Map alert polygons → the frontend's AlertsPayload (web/src/lib/types.ts).
 
 centroid is normalised to [0,1] within the DATA bounds (the hotspot, not the wide bbox),
-y-up (north = 1) — see conversations/0003. delta_series is annual-only (flat) until S1
-sub-annual is wired.
+y-up (north = 1) — see conversations/0003. Each alert is optionally tagged with `year` (its loss
+year) for the multi-year scrubber. The fake per-alert `delta_series` was removed (conv 0015/0016).
 """
 from __future__ import annotations
 
@@ -11,14 +11,14 @@ def _norm(c, lo, hi):
     return round(float((c - lo) / (hi - lo)), 4) if hi > lo else 0.0
 
 
-def build_payload(gdf, meta, metrics, aoi_area_ha):
+def build_payload(gdf, meta, metrics, aoi_area_ha, year=None):
     b = meta["bounds"]
     cent = gdf.geometry.centroid
     alerts = []
     for i, (_, row) in enumerate(gdf.iterrows()):
         mean_d = float(row["mean_delta_hv_db"])
-        alerts.append({
-            "id": f"a_{i + 1:04d}",
+        a = {
+            "id": f"a_{i + 1:04d}" if year is None else f"a_{year}_{i + 1:04d}",
             "centroid": [_norm(cent.iloc[i].x, b.left, b.right),
                          _norm(cent.iloc[i].y, b.bottom, b.top)],  # y-up: north=1
             "area_ha": float(row["area_ha"]),
@@ -31,8 +31,10 @@ def build_payload(gdf, meta, metrics, aoi_area_ha):
                 "radd_2023": False,        # no local RADD (EE fallback only)
                 "spot_visual": "unclear",  # SPOT not auto-labelled
             },
-            "delta_series": [round(mean_d, 2)] * 12,  # annual-only (illustrative)
-        })
+        }
+        if year is not None:
+            a["year"] = year
+        alerts.append(a)
 
     total_area = round(sum(a["area_ha"] for a in alerts), 1)
     summary = {

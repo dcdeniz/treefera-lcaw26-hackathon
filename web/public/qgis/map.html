@@ -40,6 +40,14 @@
       background:#fff; border:2px solid #070809; box-shadow:0 0 0 1px #fff; cursor:ew-resize; }
     #reveal .play { position:absolute; right:-2px; top:-30px; background:rgba(7,8,9,.85); border:1px solid var(--line);
       color:var(--ink); font:inherit; font-size:10px; padding:3px 9px; border-radius:6px; cursor:pointer; }
+    /* temporal scrubber */
+    #timeline { top:12px; left:50%; transform:translateX(-50%); width:min(520px,80vw); padding:8px 14px 10px; text-align:center; }
+    #timeline .tllab { display:flex; align-items:center; justify-content:center; gap:10px; font-size:9.5px; letter-spacing:.1em; color:var(--muted); margin-bottom:6px; }
+    #timeline #tlyear { color:var(--ink); font-size:14px; font-weight:600; letter-spacing:0; }
+    #timeline input[type=range]{ width:100%; accent-color:var(--red); height:4px; }
+    #timeline .tlstat { font-size:10px; color:var(--muted); margin-top:5px; }
+    #timeline .tlstat b { color:var(--ink); }
+    #timeline .tlplay { background:none; border:1px solid var(--line); color:var(--ink); font:inherit; font-size:10px; padding:1px 7px; border-radius:5px; cursor:pointer; }
     /* QGIS-style status bar */
     #status { left:0; right:0; bottom:0; height:24px; border-radius:0; border:none; border-top:1px solid var(--line);
       display:flex; align-items:center; gap:15px; padding:0 12px; font-size:10.5px; color:var(--muted); z-index:6; }
@@ -97,6 +105,12 @@
     <div class="track"><input id="rev" type="range" min="0" max="100" value="0"></div>
   </div>
 
+  <div id="timeline" class="panel">
+    <div class="tllab"><button class="tlplay" id="tlplay">▷ play</button><span>DEFORESTATION 2018–2024</span><span id="tlyear">2024</span></div>
+    <input id="tl" type="range" min="2018" max="2024" step="1" value="2024">
+    <div class="tlstat" id="tlstat">—</div>
+  </div>
+
   <div id="status" class="panel">
     <span>lng <b id="lng">—</b></span><span>lat <b id="lat">—</b></span>
     <span>z <b id="z">—</b> · pitch <b id="p">—</b>°</span>
@@ -141,7 +155,7 @@
     const OPTICAL_COORDS = [[113.429105,-0.926635],[113.570921,-0.926635],[113.570921,-1.073316],[113.429105,-1.073316]];
     map.on('load', () => {
       // draw order: OSM underlay → SAR rasters → real optical → cloud blind-spot → alerts(3D, top)
-      map.addSource('hv_2023', { type:'image', url:'./hv_2023.png', coordinates:coords });
+      map.addSource('hv_2023', { type:'image', url:'./ts/hv_2024.png', coordinates:coords });
       map.addLayer({ id:'hv_2023', type:'raster', source:'hv_2023',
         paint:{ 'raster-opacity':0, 'raster-resampling':'nearest', 'raster-fade-duration':0 } });
       map.addSource('loss', { type:'image', url:'./loss.png', coordinates:coords });
@@ -155,13 +169,13 @@
       map.addLayer({ id:'cloud_nobs', type:'raster', source:'cloud_nobs',
         paint:{ 'raster-opacity':1, 'raster-fade-duration':0 } });
 
-      map.addSource('alerts', { type:'geojson', data:'./alerts_2023.geojson' });
+      map.addSource('alerts', { type:'geojson', data:'./ts/alerts_timeseries.geojson' });
       const sev = ['*', -1, ['get','mean_delta_hv_db']];   // |Δ HV| dB
-      map.addLayer({ id:'alerts', type:'fill-extrusion', source:'alerts', paint:{
+      map.addLayer({ id:'alerts', type:'fill-extrusion', source:'alerts', filter:['<=',['get','year'],2024], paint:{
         'fill-extrusion-height': ['*', sev, 160], 'fill-extrusion-base':0, 'fill-extrusion-opacity':0,
         'fill-extrusion-color': ['interpolate',['linear'], sev, 2.5,'#f2d24b',3.5,'#f2913b',4.5,'#e23b3b',6.5,'#9c0f12'] } });
 
-      buildPanel(); identify(); setReveal(0);
+      buildPanel(); identify(); setupTimeline(); setReveal(0);
       // demonstrate the gradient once, then leave the slider in the analyst's hands
       animateReveal(0, 1, 2600);
     });
@@ -184,6 +198,29 @@
     }
     document.getElementById('rev').addEventListener('input', e => { cancelAnimationFrame(raf); setReveal(+e.target.value/100); });
     document.getElementById('play').addEventListener('click', () => { setReveal(0); animateReveal(0,1,2600); });
+
+    // temporal scrubber: drag the year → swap per-year SAR HV raster + show cumulative alerts (year≤Y).
+    let traf = null;
+    function setupTimeline() {
+      fetch('./ts/ts_manifest.json').then(r => r.json()).then(TS => {
+        const py = TS.per_year || {};
+        const tl = document.getElementById('tl');
+        const stat = document.getElementById('tlstat');
+        const cum = (y) => { let c=0,a=0; for (let k=2018;k<=y;k++){ if(py[k]){c+=py[k].count;a+=py[k].area_ha;} } return {c,a:Math.round(a)}; };
+        const apply = (y) => {
+          const s = map.getSource('hv_2023'); if (s && s.updateImage) s.updateImage({ url:`./ts/hv_${y}.png`, coordinates:coords });
+          map.setFilter('alerts', ['<=', ['get','year'], y]);
+          document.getElementById('tlyear').textContent = y;
+          const c = cum(y); stat.innerHTML = `<b>${c.c}</b> clearings · <b>${c.a}</b> ha cumulative to ${y}`;
+        };
+        tl.addEventListener('input', e => { clearInterval(traf); apply(+e.target.value); });
+        document.getElementById('tlplay').addEventListener('click', () => {
+          clearInterval(traf); let y = 2018; tl.value = 2018; apply(2018);
+          traf = setInterval(() => { y++; if (y > 2024) { clearInterval(traf); return; } tl.value = y; apply(y); }, 750);
+        });
+        apply(2024);
+      });
+    }
 
     function buildPanel() {
       const rows = [{ id:'osm', type:'raster', sw:'#9fb0c4', nm:'OpenStreetMap (underlay)' }, ...REV];
